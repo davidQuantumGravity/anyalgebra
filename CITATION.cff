@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "AnyAlgebra"
+abstract: "Neutral exact foundations for arbitrary algebraic structures."
+type: software
+authors:
+  - family-names: "Chester"
+    given-names: "David"
+version: "0.1.0"
+license: "AGPL-3.0-only"
+repository-code: "https://github.com/davidQuantumGravity/anyalgebra"

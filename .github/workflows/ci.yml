@@ -1,0 +1,116 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# The workflows only need repository contents.  They never publish, deploy, or
+# write back to the repository.
+permissions:
+  contents: read
+
+# Superseded pull-request and branch builds do not consume runner time.  A
+# cancelled matrix is still a failed/incomplete required check until its latest
+# replacement succeeds.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  fast:
+    name: Fast checks (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      # Finish both supported-runtime legs so one failure does not hide another.
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install the development and package dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Check formatting and lint
+        run: |
+          python -m ruff format --check src tests examples tools
+          python -m ruff check src tests examples tools
+      - name: Type-check the public package and tests
+        run: |
+          python -m mypy src tests
+          python -m mypy --explicit-package-bases examples
+      - name: Run neutral-core tests
+        # tests/conftest.py marks every file under tests/legacy automatically;
+        # optional backends remain explicitly marked at the test surface.
+        # Tests marked internal_records audit maintainer process records that
+        # are not part of this repository; they skip visibly here and run in
+        # maintainer checkouts.  Tests marked slow are the long exact
+        # computations; the full job below runs them on every push to main.
+        run: >-
+          python -m pytest -q
+          -m "not legacy and not optional_backend and not slow"
+
+  full:
+    name: Full reference suite with coverage
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: fast
+    runs-on: ubuntu-latest
+    # The slow exact computations dominate this job.  The limit is a hang
+    # guard, not a performance target; the scheduled workflow repeats the
+    # complete suite on every supported interpreter.
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          # One interpreter keeps the push lane affordable.  Coverage tracing
+          # is far cheaper on interpreters with sys.monitoring.
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install the development and package dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Run the full neutral reference suite with coverage
+        # Optional and legacy evidence have isolated scheduled lanes.  This
+        # selection never makes the neutral core conditional on their absence:
+        # every unmarked test still runs, while the directory-level legacy
+        # boundary and explicit optional markers move external evidence out.
+        run: >-
+          python -m pytest -q -m "not legacy and not optional_backend"
+          --cov=anyalgebra --cov-branch --cov-report=term-missing
+          --cov-fail-under=95
+
+  package-smoke:
+    name: Build and clean-wheel import
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: fast
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Build a wheel and import it in an isolated environment
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build --wheel
+          smoke_dir="$(mktemp -d)"
+          python -m venv "${smoke_dir}/venv"
+          "${smoke_dir}/venv/bin/python" -m pip install --no-deps dist/*.whl
+          cd "${smoke_dir}"
+          "${smoke_dir}/venv/bin/python" -I -c "import anyalgebra; print(anyalgebra.__version__)"

@@ -1,0 +1,729 @@
+{
+  "schemaType": "AnyAlgebra.AlgMulGeneratedLifts",
+  "schemaVersion": "2",
+  "source": {
+    "path": "${ANYALGEBRA_ALGMUL_SOURCE}",
+    "sha256": "3A13C9F47092B5B9814AA08873FF4F1DE61D4635DF68FC7F3A039A7DA5B0D00D",
+    "bytes": 194012
+  },
+  "kernel": {
+    "versionNumber": "12.0",
+    "freshProcess": true
+  },
+  "captureRecipe": {
+    "schema": "AnyAlgebra.AlgMulGeneratedLiftsRecipe.v1",
+    "freshProcessPerScenario": true,
+    "adapter": {
+      "module": "anyalgebra.legacy.mathematica.MathematicaAdapter",
+      "requiredVersion": "12.0",
+      "timeoutSeconds": 120,
+      "maxOutputBytes": 1048576
+    },
+    "template": "$ContextPath={\"System`\",\"Global`\"};\nv86zzSha[v86zzValue_]:=ToUpperCase[IntegerString[Hash[v86zzValue,\"SHA256\"],16,64]];\nv86zzRecord[v86zzName_String]:=ToExpression[v86zzName,InputForm,Function[v86zzHeld,<|\"name\"->v86zzName,\"context\"->Context[v86zzHeld],\"attributes\"->(ToString[#,InputForm]&/@Attributes[v86zzHeld]),\"ownValueCount\"->Length[OwnValues[v86zzHeld]],\"downValueCount\"->Length[DownValues[v86zzHeld]],\"upValueCount\"->Length[UpValues[v86zzHeld]],\"subValueCount\"->Length[SubValues[v86zzHeld]],\"definitionHash\"->v86zzSha[ToString[{OwnValues[v86zzHeld],DownValues[v86zzHeld],UpValues[v86zzHeld],SubValues[v86zzHeld],Attributes[v86zzHeld]},InputForm]]|>,HoldAll]];\nv86zzLoad=.;v86zzLoadMessages=.;v86zzBefore=.;v86zzResult=.;v86zzActionMessages=.;v86zzEvidence=.;v86zzAfter=.;v86zzNonzero=.;v86zzIgnored=.;v86zzLeft=.;v86zzRight=.;v86zzTa=.;v86zzTb=.;v86zzSha[\"\"];v86zzSnapshot[]:=<|\"names\"->Names[\"AlgMul`*\"],\"global\"->Complement[Names[\"Global`*\"],v86zzHarnessGlobals],\"contexts\"->Contexts[],\"registry\"->AlgMul`alg[\"algs\"],\"alg\"->v86zzRecord[\"AlgMul`alg\"]|>;v86zzHarnessGlobals=Names[\"Global`*\"];\nBlock[{$MessageList={}},v86zzLoad=Get[Environment[\"ANYALGEBRA_ALGMUL_SOURCE\"]];v86zzLoadMessages=(ToString[#,InputForm]&/@$MessageList)];\nv86zzBefore=v86zzSnapshot[];Block[{$MessageList={}},v86zzResult=({{ACTION}});v86zzActionMessages=(ToString[#,InputForm]&/@$MessageList)];\nv86zzEvidence=({{EXTRACT}});\nv86zzAfter=v86zzSnapshot[];\nPrint[\"V86_BEGIN\"];Print[ExportString[<|\"loadMessages\"->v86zzLoadMessages,\"before\"->v86zzBefore,\"after\"->v86zzAfter,\"result\"->ToString[v86zzResult,InputForm],\"actionMessages\"->v86zzActionMessages,\"evidence\"->v86zzEvidence,\"symbols\"->(v86zzRecord/@{{TARGETS}})|>,\"RawJSON\"]];Print[\"V86_END\"];\n",
+    "scenarios": [
+      {
+        "id": "load",
+        "action": "Null",
+        "targets": [
+          "AlgMul`MakeChar",
+          "AlgMul`MakeTMul",
+          "AlgMul`TMul",
+          "AlgMul`MMul",
+          "AlgMul`MTMul"
+        ],
+        "extract": "<|\"registryNames\"->AlgMul`alg[\"algs\"],\"makePropertyPresent\"->NameQ[\"AlgMul`MakeProperty\"]|>"
+      },
+      {
+        "id": "make-char",
+        "action": "AlgMul`MakeChar[3,\"Q9\",\"q\"]",
+        "targets": [
+          "Global`Q",
+          "Global`q1",
+          "Global`q2",
+          "Global`QMul"
+        ],
+        "extract": "<|\"route\"->ToString[AlgMul`alg[\"Mul\"][\"Q9\"],InputForm],\"chars\"->(ToString[#,InputForm]&/@AlgMul`alg[\"chars\"][\"Q9\"])|>"
+      },
+      {
+        "id": "same-maketmul",
+        "action": "AlgMul`MakeTMul[\"C\",\"C\",\"CxC\"]",
+        "targets": [],
+        "extract": "<|\"basis\"->(ToString[#,InputForm]&/@AlgMul`alg[\"chars\"][\"CxC\"]),\"structureDotDimensions\"->Dimensions[AlgMul`alg[\"StructDot\"][\"CxC\"]],\"structureDotNonzeroEntries\"->Count[Flatten[Normal[AlgMul`alg[\"StructDot\"][\"CxC\"]]],v86zzNonzero_/;v86zzNonzero=!=0],\"structureDotHash\"->v86zzSha[ToString[AlgMul`alg[\"StructDot\"][\"CxC\"],InputForm]]|>"
+      },
+      {
+        "id": "cross-maketmul",
+        "action": "AlgMul`MakeTMul[\"C\",\"H2\",\"AuditCxH2\"]",
+        "targets": [
+          "Global`H",
+          "AlgMul`e1AlgMul`f1",
+          "AlgMul`e1AlgMul`f2",
+          "AlgMul`e1AlgMul`f3"
+        ],
+        "extract": "<|\"basis\"->(ToString[#,InputForm]&/@AlgMul`alg[\"chars\"][\"AuditCxH2\"]),\"structureDotDimensions\"->Dimensions[AlgMul`alg[\"StructDot\"][\"AuditCxH2\"]],\"structureDotNonzeroEntries\"->Count[Flatten[Normal[AlgMul`alg[\"StructDot\"][\"AuditCxH2\"]]],v86zzNonzero_/;v86zzNonzero=!=0],\"structureDotHash\"->v86zzSha[ToString[AlgMul`alg[\"StructDot\"][\"AuditCxH2\"],InputForm]]|>"
+      },
+      {
+        "id": "lifts",
+        "action": "{AlgMul`TMul[{{0,0,0,0},{0,1,0,0}},{{0,0,0,0},{0,1,0,0}},{\"C\",\"H\"}],With[{v86zzTa={{{{0,0},{0,1}},{{1,0},{0,0}}}},v86zzTb={{{{0,0},{0,1}}},{{{1,0},{0,0}}}}},AlgMul`MTMul[v86zzTa,v86zzTb,{\"C\",\"C2\"}]],AlgMul`MMul[{{{0,1,0,0},{0,0,1,0}}},{{{0,1,0,0}},{{0,0,1,0}}},\"H\",Function[{v86zzLeft,v86zzRight,v86zzIgnored},AlgMul`HMul[v86zzLeft,v86zzRight]]]} ",
+        "targets": [],
+        "extract": "<|\"TMulCoordinateCxH\"->AlgMul`TMul[{{0,0,0,0},{0,1,0,0}},{{0,0,0,0},{0,1,0,0}},{\"C\",\"H\"}],\"MTMul\"->With[{v86zzTa={{{{0,0},{0,1}},{{1,0},{0,0}}}},v86zzTb={{{{0,0},{0,1}}},{{{1,0},{0,0}}}}},AlgMul`MTMul[v86zzTa,v86zzTb,{\"C\",\"C2\"}]],\"MMul\"->AlgMul`MMul[{{{0,1,0,0},{0,0,1,0}}},{{{0,1,0,0}},{{0,0,1,0}}},\"H\",Function[{v86zzLeft,v86zzRight,v86zzIgnored},AlgMul`HMul[v86zzLeft,v86zzRight]]]|>"
+      }
+    ],
+    "sha256": "18ECB90B72F225E0C8B6AB5EDE4181295324D7FED7511AD17DC7F8F6F85B0614",
+    "substitution": {
+      "ACTION": "replace the sole {{ACTION}} token with scenario.action as Wolfram Language input",
+      "TARGETS": "replace the sole {{TARGETS}} token with a Wolfram list of quoted scenario.targets",
+      "EXTRACT": "replace the sole {{EXTRACT}} token with scenario.extract as Wolfram Language input"
+    }
+  },
+  "scenarioContextMutations": {
+    "load": {
+      "added": []
+    },
+    "make-char": {
+      "added": []
+    },
+    "same-maketmul": {
+      "added": []
+    },
+    "cross-maketmul": {
+      "added": [
+        "AlgMul`e1AlgMul`"
+      ]
+    },
+    "lifts": {
+      "added": []
+    }
+  },
+  "load": {
+    "registryNames": [
+      "O",
+      "H",
+      "C",
+      "O2",
+      "H2",
+      "C2",
+      "O3",
+      "H3",
+      "C3",
+      "Os",
+      "Hs",
+      "Cs",
+      "Os2",
+      "Hs2",
+      "Cs2",
+      "Os3",
+      "Hs3",
+      "Cs3",
+      "CxH",
+      "D"
+    ],
+    "messageTag": "Syntax::sntx",
+    "sourceLine": 1414,
+    "rawMessageSha256": "E1FB091A3742818B0A226A906F4B62C3B78CB14C344250154F6763FDF2072824",
+    "makePropertyPresent": false
+  },
+  "definitions": [
+    {
+      "name": "AlgMul`MakeChar",
+      "attributes": [],
+      "ownValueCount": 0,
+      "downValueCount": 2,
+      "upValueCount": 0,
+      "subValueCount": 0,
+      "definitionHash": "F41A4252D44D094186042F521E775C2BCF20823794CB52DD6818BC5C204D11A9"
+    },
+    {
+      "name": "AlgMul`MakeTMul",
+      "attributes": [],
+      "ownValueCount": 0,
+      "downValueCount": 2,
+      "upValueCount": 0,
+      "subValueCount": 0,
+      "definitionHash": "736EC57D8D05D3311FA45B43AACBAE638EF59FD96711E5DE303607CC33DB65A4"
+    },
+    {
+      "name": "AlgMul`TMul",
+      "attributes": [],
+      "ownValueCount": 0,
+      "downValueCount": 4,
+      "upValueCount": 0,
+      "subValueCount": 0,
+      "definitionHash": "245EE7EECC4231C5A6EF0AC57A5C87D88A92C7A0BDB11BD3F2E81EA6A6CB7B0F"
+    },
+    {
+      "name": "AlgMul`MMul",
+      "attributes": [],
+      "ownValueCount": 0,
+      "downValueCount": 1,
+      "upValueCount": 0,
+      "subValueCount": 0,
+      "definitionHash": "59BA1F7C9B6B3C950FF780C23AFFB6E1E46DADD5A6312AC0ECD579515469C74D"
+    },
+    {
+      "name": "AlgMul`MTMul",
+      "attributes": [],
+      "ownValueCount": 0,
+      "downValueCount": 1,
+      "upValueCount": 0,
+      "subValueCount": 0,
+      "definitionHash": "54601AE1A32E2E85B85F965B403C205FF484532D5F1BDD784BB0D0D73ED9CB5C"
+    }
+  ],
+  "makeChar": {
+    "operation": "MakeChar",
+    "arguments": [
+      3,
+      "Q9",
+      "q"
+    ],
+    "result": [
+      "1",
+      "q1",
+      "q2"
+    ],
+    "messages": [],
+    "globalMutation": {
+      "before": [],
+      "added": [
+        "Q",
+        "QMul",
+        "q1",
+        "q2"
+      ],
+      "after": [
+        "Q",
+        "QMul",
+        "q1",
+        "q2"
+      ]
+    },
+    "contextMutation": {
+      "added": []
+    },
+    "registryMutation": {
+      "beforeCount": 20,
+      "added": [
+        "Q9"
+      ],
+      "afterCount": 21
+    },
+    "symbols": [
+      {
+        "name": "Global`Q",
+        "context": "Global`",
+        "attributes": [],
+        "ownValueCount": 0,
+        "downValueCount": 0,
+        "upValueCount": 0,
+        "subValueCount": 0,
+        "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+      },
+      {
+        "name": "Global`q1",
+        "context": "Global`",
+        "attributes": [],
+        "ownValueCount": 0,
+        "downValueCount": 0,
+        "upValueCount": 0,
+        "subValueCount": 0,
+        "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+      },
+      {
+        "name": "Global`q2",
+        "context": "Global`",
+        "attributes": [],
+        "ownValueCount": 0,
+        "downValueCount": 0,
+        "upValueCount": 0,
+        "subValueCount": 0,
+        "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+      },
+      {
+        "name": "Global`QMul",
+        "context": "Global`",
+        "attributes": [],
+        "ownValueCount": 0,
+        "downValueCount": 0,
+        "upValueCount": 0,
+        "subValueCount": 0,
+        "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+      }
+    ],
+    "algDefinition": {
+      "before": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+      "after": "415C8C6D0C49B99C17C2A78C109B179724B9B2C5042AC813566D780C1745F315"
+    },
+    "route": {
+      "value": "Global`QMul",
+      "definitionPresent": false
+    }
+  },
+  "makeTMul": {
+    "sameFactor": {
+      "operation": "MakeTMul",
+      "arguments": [
+        "C",
+        "C",
+        "CxC"
+      ],
+      "result": "CxC",
+      "messages": [],
+      "globalMutation": {
+        "before": [],
+        "added": [],
+        "after": []
+      },
+      "contextMutation": {
+        "added": []
+      },
+      "registryMutation": {
+        "beforeCount": 20,
+        "added": [
+          "CxC"
+        ],
+        "afterCount": 21
+      },
+      "basis": [
+        "1",
+        "AlgMul`e1",
+        "AlgMul`e1",
+        "AlgMul`e1"
+      ],
+      "structureDot": {
+        "dimensions": [
+          4,
+          4,
+          4
+        ],
+        "nonzeroEntries": 0,
+        "hash": "1709960F90E4FBD48672A5F7AC7D6EBC798371B885E84441C246FA57EEB378B2"
+      },
+      "algDefinition": {
+        "before": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+        "after": "04656E8036AB7CE8323D4209CDE1513E2521819AC428E9C0AFD16521F4324E11"
+      },
+      "symbols": []
+    },
+    "crossFactor": {
+      "operation": "MakeTMul",
+      "arguments": [
+        "C",
+        "H2",
+        "AuditCxH2"
+      ],
+      "result": "AuditCxH2",
+      "messages": [],
+      "globalMutation": {
+        "before": [],
+        "added": [
+          "H"
+        ],
+        "after": [
+          "H"
+        ]
+      },
+      "contextMutation": {
+        "added": [
+          "AlgMul`e1AlgMul`"
+        ]
+      },
+      "registryMutation": {
+        "beforeCount": 20,
+        "added": [
+          "AuditCxH2"
+        ],
+        "afterCount": 21
+      },
+      "basis": [
+        "1",
+        "AlgMul`f1",
+        "AlgMul`f2",
+        "AlgMul`f3",
+        "AlgMul`e1",
+        "AlgMul`e1AlgMul`f1",
+        "AlgMul`e1AlgMul`f2",
+        "AlgMul`e1AlgMul`f3"
+      ],
+      "structureDot": {
+        "dimensions": [
+          8,
+          8,
+          8
+        ],
+        "nonzeroEntries": 0,
+        "hash": "ED18CFDD36794CFFDE182B3EC97CD3BD6AF17C65AFEEEA787C84538142D349FB"
+      },
+      "algDefinition": {
+        "before": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+        "after": "BA629EF0DF5858DA12CA972AF988A39563690154CD77E8730A3ECE0A64F19395"
+      },
+      "symbols": [
+        {
+          "name": "Global`H",
+          "context": "Global`",
+          "attributes": [],
+          "ownValueCount": 0,
+          "downValueCount": 0,
+          "upValueCount": 0,
+          "subValueCount": 0,
+          "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+        },
+        {
+          "name": "AlgMul`e1AlgMul`f1",
+          "context": "AlgMul`e1AlgMul`",
+          "attributes": [],
+          "ownValueCount": 0,
+          "downValueCount": 0,
+          "upValueCount": 0,
+          "subValueCount": 0,
+          "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+        },
+        {
+          "name": "AlgMul`e1AlgMul`f2",
+          "context": "AlgMul`e1AlgMul`",
+          "attributes": [],
+          "ownValueCount": 0,
+          "downValueCount": 0,
+          "upValueCount": 0,
+          "subValueCount": 0,
+          "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+        },
+        {
+          "name": "AlgMul`e1AlgMul`f3",
+          "context": "AlgMul`e1AlgMul`",
+          "attributes": [],
+          "ownValueCount": 0,
+          "downValueCount": 0,
+          "upValueCount": 0,
+          "subValueCount": 0,
+          "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+        }
+      ]
+    }
+  },
+  "lifts": [
+    {
+      "operation": "TMul",
+      "algebras": [
+        "C",
+        "H"
+      ],
+      "left": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "right": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "result": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "messages": [],
+      "classification": "legacy-defect"
+    },
+    {
+      "operation": "MTMul",
+      "algebras": [
+        "C",
+        "C2"
+      ],
+      "left": [
+        [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      ],
+      "right": [
+        [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      ],
+      "result": [
+        [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      ],
+      "messages": [],
+      "classification": "legacy-defect"
+    },
+    {
+      "operation": "MMul",
+      "algebras": [
+        "H"
+      ],
+      "kernel": "Function[{a,b,ignored},HMul[a,b]]",
+      "left": [
+        [
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ]
+        ]
+      ],
+      "right": [
+        [
+          [
+            0,
+            1,
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            0,
+            0,
+            1,
+            0
+          ]
+        ]
+      ],
+      "result": [
+        [
+          [
+            -2,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "messages": [],
+      "classification": "explicit-kernel-positive"
+    }
+  ],
+  "independentOracle": {
+    "factorTables": [
+      [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            -1,
+            0
+          ]
+        ]
+      ],
+      [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            -1,
+            0
+          ]
+        ]
+      ]
+    ],
+    "squareInput": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "squareExpected": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "matrixLeft": [
+      [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ]
+    ],
+    "matrixRight": [
+      [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ]
+    ],
+    "matrixExpected": [
+      [
+        [
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ]
+    ],
+    "legacyObservedMatrix": [
+      [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ]
+    ]
+  }
+}

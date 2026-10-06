@@ -1,0 +1,109 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "anyalgebra"
+description = "Neutral exact foundations for arbitrary algebraic structures."
+readme = "README.md"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dynamic = ["version"]
+dependencies = []
+
+[project.scripts]
+anyalgebra-atlas = "anyalgebra.atlas.cli:main"
+
+[project.urls]
+Repository = "https://github.com/davidQuantumGravity/anyalgebra"
+Issues = "https://github.com/davidQuantumGravity/anyalgebra/issues"
+
+[project.optional-dependencies]
+dev = [
+    "coverage[toml]>=7.6,<8",
+    "mypy>=1.15,<2",
+    "pytest>=8,<10",
+    "pytest-cov>=6,<8",
+    "ruff>=0.12,<1",
+]
+
+[tool.hatch.version]
+path = "src/anyalgebra/_version.py"
+
+[tool.hatch.build]
+exclude = [
+    "/.agents",
+    "/.coverage",
+    "/.github",
+    "/.mypy_cache",
+    "/.pytest_cache",
+    "/.ruff_cache",
+    "/__pycache__",
+    "/build",
+    "/dist",
+    "*.pyc",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anyalgebra"]
+
+[tool.pytest.ini_options]
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "exhaustive: declares a bounded exhaustive finite check",
+    "internal_records: audits maintainer process records absent from public checkouts",
+    "legacy: uses a pinned legacy snapshot as non-oracular comparison evidence",
+    "optional_backend: requires an optional backend capability",
+    "research: project-scoped evidence excluded from ordinary release claims",
+    "slow: a long exact computation, excluded from the fast continuous-integration lane",
+]
+
+[tool.coverage.run]
+branch = true
+relative_files = true
+source = ["anyalgebra"]
+omit = [
+    # The neutral CI lane excludes tests/legacy.  Its source coverage must use
+    # the same boundary; the frozen canonical ledger and scheduled legacy lane
+    # retain responsibility for these modules.
+    "src/anyalgebra/legacy/*",
+    # A few coverage-tool tests create disposable packages under pytest's
+    # temporary root.  They are fixtures, not repository source files.
+    "*/pytest-of-*/*",
+]
+
+[tool.coverage.report]
+exclude_also = ["if TYPE_CHECKING:"]
+omit = ["src/anyalgebra/legacy/*", "*/pytest-of-*/*"]
+precision = 1
+show_missing = true
+
+[tool.mypy]
+files = ["src", "tests"]
+mypy_path = ["src"]
+python_version = "3.11"
+strict = true
+warn_unused_configs = true
+
+[tool.ruff]
+extend-exclude = ["build"]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.format]
+docstring-code-format = true
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.anyalgebra.quality-gates]
+# Diagnostic targets. Semantic contract coverage remains the release gate.
+branch_coverage_min = 90
+statement_coverage_min = 95

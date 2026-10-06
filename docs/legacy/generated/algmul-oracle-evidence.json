@@ -1,0 +1,139 @@
+{
+  "schema": "anyalgebra.algmul-oracle-evidence/v1",
+  "purpose": "Externally anchored V00-089 evidence for the six disposition partitions with adequate independent v0.0 oracles. Pending rules deliberately have no oracle IDs. These records do not promote legacy observations into correctness or scientific claims.",
+  "entries": [
+    {
+      "id": "oracle.structure.many-sorted-builder",
+      "path": "tests/structures/test_structure_builder.py",
+      "sha256": "1737C9D7504EA123D0D41F844FBFCAE62CCF79543C92631DF263B1E377EB03B2",
+      "binding": {
+        "pytestNodes": [
+          "tests/structures/test_structure_builder.py::test_table_callable_partial_and_predicate_interpretations_are_accepted",
+          "tests/structures/test_structure_builder.py::test_builder_freeze_isolation_and_same_named_structure_coexistence"
+        ]
+      },
+      "assertion": "The generic structure builder accepts total-table, callable, partial, and predicate interpretations and freezes coexisting same-named structures independently.",
+      "limitation": "This witnesses the arbitrary-structure replacement contract on finite declared carriers, not every possible user-defined carrier."
+    },
+    {
+      "id": "oracle.structure.callable-evaluation",
+      "path": "tests/algebra/test_from_callable.py",
+      "sha256": "97FBC87AD5F0734194EE0ADEAE2DF165895890F5B36214CA9D331AA8843B9645",
+      "binding": {
+        "pytestNodes": [
+          "tests/algebra/test_from_callable.py::test_binary_callable_order_and_constants_match",
+          "tests/algebra/test_from_callable.py::test_unary_ternary_nullary_rank_zero_and_257_ary_boundaries"
+        ]
+      },
+      "assertion": "Callable-defined multilinear structures agree with explicit constants and cover nullary, unary, binary, ternary, rank-zero, and bounded high-arity cases.",
+      "limitation": "The tests establish generic construction semantics and bounds, not legacy dynamic-name dispatch."
+    },
+    {
+      "id": "oracle.structure.explicit-constants",
+      "path": "tests/algebra/test_from_structure_constants.py",
+      "sha256": "9C1F785375962DBF2A1F2859A8D7F07B0885E8178D1416131DAB78CCA9F25384",
+      "binding": {
+        "pytestNodes": [
+          "tests/algebra/test_from_structure_constants.py::test_binary_constants_are_sparse_canonical_and_evaluate_to_module_elements",
+          "tests/algebra/test_from_structure_constants.py::test_unary_ternary_and_nullary_constants_preserve_the_declared_arity"
+        ]
+      },
+      "assertion": "Explicit sparse structure constants evaluate in the declared module and preserve the complete operation arity.",
+      "limitation": "These finite exact fixtures are independent semantic oracles, not evidence for every AlgMul table."
+    },
+    {
+      "id": "oracle.presentation.round-trip",
+      "path": "tests/presentations/test_symbolic_coordinate_table.py",
+      "sha256": "4E1006FC6912C334EF8DA438A66FAFC9AD02A4E79AC35389E533D4AE58E5403B",
+      "binding": {
+        "pytestNodes": [
+          "tests/presentations/test_symbolic_coordinate_table.py::test_symbolic_coordinates_canonicalize_and_round_trip_direct_and_v52",
+          "tests/presentations/test_symbolic_coordinate_table.py::test_symbolic_rank_zero_qq_and_negative_parent_boundaries",
+          "tests/presentations/test_symbolic_coordinate_table.py::test_explicit_ambiguity_remains_visible_and_never_shape_infers"
+        ]
+      },
+      "assertion": "Symbolic and coordinate presentations round trip canonically across direct and registered routes, with explicit parent and ambiguity boundaries.",
+      "limitation": "This establishes declared conversion routes and deliberately does not preserve shape-inferred AlgMul heuristics."
+    },
+    {
+      "id": "oracle.property.kernel-ast",
+      "path": "tests/validation/test_law_factories.py",
+      "sha256": "7AC51F89EA2885CAB6B9D5D0CDC8EEE2372813AC350027BC99C4350BDABD90DB",
+      "binding": {
+        "pytestNodes": [
+          "tests/validation/test_law_factories.py::test_standard_binary_factories_preserve_literal_operation_and_parentheses",
+          "tests/validation/test_law_factories.py::test_jacobi_is_explicit_bracket_addition_and_nullary_zero"
+        ]
+      },
+      "assertion": "Standard binary laws and Jacobi are independently constructed as explicit typed syntax with literal operations and parentheses.",
+      "limitation": "Expression construction does not assert that a particular algebra satisfies the resulting law."
+    },
+    {
+      "id": "oracle.property.legacy-parenthesization",
+      "path": "tests/legacy/test_generated_property_family.py",
+      "sha256": "F6921750D4F99E9F948D3E628B88216A7E7504B122FB5A10B6E94D94723314ED",
+      "binding": {
+        "pytestNodes": [
+          "tests/legacy/test_generated_property_family.py::test_literal_legacy_power_jordan_and_jacobi_parenthesizations_are_typed"
+        ]
+      },
+      "assertion": "Power, Jordan, and Jacobi replacement expressions preserve the reviewed literal parenthesizations in typed trees.",
+      "limitation": "This is a syntax oracle for the replacement kernels, not proof of the corresponding identities."
+    },
+    {
+      "id": "oracle.property.wrapper-evaluation",
+      "path": "tests/legacy/test_generated_property_family.py",
+      "sha256": "F6921750D4F99E9F948D3E628B88216A7E7504B122FB5A10B6E94D94723314ED",
+      "binding": {
+        "pytestNodes": [
+          "tests/legacy/test_generated_property_family.py::test_typed_laws_validate_against_a_hand_checkable_finite_model",
+          "tests/legacy/test_generated_property_family.py::test_validation_keeps_deterministic_disproof_and_inconclusive_boundaries",
+          "tests/legacy/test_generated_property_family.py::test_custom_law_routes_preserve_declared_partial_semantics"
+        ]
+      },
+      "assertion": "Typed property wrappers produce hand-checkable proof, deterministic disproof, inconclusive, and declared-partiality outcomes.",
+      "limitation": "The oracle covers typed replacement behavior and does not treat malformed generated Mathematica wrappers as correct."
+    },
+    {
+      "id": "oracle.property.generated-api",
+      "path": "tests/legacy/test_generated_property_family.py",
+      "sha256": "F6921750D4F99E9F948D3E628B88216A7E7504B122FB5A10B6E94D94723314ED",
+      "binding": {
+        "pytestNodes": [
+          "tests/legacy/test_generated_property_family.py::test_makeproperty_fixture_enumerates_the_complete_intended_surface",
+          "tests/legacy/test_generated_property_family.py::test_missing_factory_and_every_intended_name_have_disposition_and_oracle",
+          "tests/legacy/test_generated_property_family.py::test_known_legacy_generator_defects_are_localized_not_preserved",
+          "tests/legacy/test_generated_property_family.py::test_typed_laws_validate_against_a_hand_checkable_finite_model"
+        ]
+      },
+      "assertion": "The exact 128 intended generated names, missing runtime factory, localized defects, and typed finite-model replacements are all independently asserted.",
+      "limitation": "Surface completeness does not claim that the pinned Mathematica load successfully generated the missing names."
+    },
+    {
+      "id": "oracle.linear.span",
+      "path": "tests/linear/test_span.py",
+      "sha256": "18BF1A70D7999B47E57E5A0C169B2C09A4BF75173CAC39417DBC9665FE8A0EB2",
+      "binding": {
+        "pytestNodes": [
+          "tests/linear/test_span.py::test_unique_dependent_outside_and_flattened_operator_coordinates",
+          "tests/linear/test_span.py::test_small_exhaustive_coordinate_oracle_for_flattened_matrices",
+          "tests/linear/test_span.py::test_small_exhaustive_dependent_and_outside_oracles"
+        ]
+      },
+      "assertion": "Exact span solving distinguishes unique, dependent, and outside-span outcomes and agrees with small exhaustive coordinate oracles.",
+      "limitation": "The exhaustive checks are bounded fixtures and do not imply closure for arbitrary operator families."
+    },
+    {
+      "id": "oracle.linear.recovery",
+      "path": "tests/linear/test_operator_recovery.py",
+      "sha256": "34FA41A4C5ED730A0F8FDDCAF44A19B94DF0C148D721E718FFCE83A4BA654E6F",
+      "binding": {
+        "pytestNodes": [
+          "tests/linear/test_operator_recovery.py::test_independent_two_dimensional_structure_table_oracle"
+        ]
+      },
+      "assertion": "A hand-checkable two-dimensional operator family recovers exact constants and reconstructs every declared bracket.",
+      "limitation": "The independent case verifies recovery mechanics, not arbitrary closure or legacy output correctness."
+    }
+  ]
+}

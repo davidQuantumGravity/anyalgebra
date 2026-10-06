@@ -1,0 +1,128 @@
+name: Scheduled reference and optional evidence
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+# This workflow is observational: it runs tests and reports explicit optional
+# capability absence, but has no authority to alter repository state.
+permissions:
+  contents: read
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  reference-full:
+    name: Scheduled full reference suite (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      # Preserve every runtime result; a failure in either leg fails this gate.
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install the development and package dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Run all neutral-core checks with coverage
+        # tests/conftest.py marks the complete tests/legacy directory; optional
+        # backend tests retain explicit markers.
+        run: |
+          python -m ruff format --check src tests examples tools
+          python -m ruff check src tests examples tools
+          python -m mypy src tests
+          python -m mypy --explicit-package-bases examples
+          python -m pytest -q -m "not legacy and not optional_backend" --cov=anyalgebra --cov-branch --cov-report=term-missing --cov-fail-under=95
+      - name: Build a wheel and import it in an isolated environment
+        shell: bash
+        run: |
+          python -m pip install build
+          python -m build --wheel
+          smoke_dir="$(mktemp -d)"
+          python -m venv "${smoke_dir}/venv"
+          "${smoke_dir}/venv/bin/python" -m pip install --no-deps dist/*.whl
+          cd "${smoke_dir}"
+          "${smoke_dir}/venv/bin/python" -I -c "import anyalgebra; print(anyalgebra.__version__)"
+
+  optional-backends:
+    name: Scheduled optional-backend evidence
+    needs: reference-full
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install the neutral core before optional capability discovery
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+          python -I -c "import anyalgebra; print(anyalgebra.__version__)"
+      - name: Run declared optional-backend tests or record an explicit skip
+        shell: bash
+        run: |
+          set +e
+          python -m pytest --collect-only -q -m optional_backend
+          collection_status=$?
+          set -e
+          if [[ "${collection_status}" -eq 5 ]]; then
+            echo "::notice title=Optional backend lane skipped::Pytest collected no optional_backend tests in this revision. This is an absence record, not passing differential evidence; the required reference-full job has already tested the neutral core."
+            exit 0
+          fi
+          if [[ "${collection_status}" -ne 0 ]]; then
+            echo "::error title=Optional backend collection failed::Pytest could not collect the optional_backend selection; this is not a passing evidence result."
+            exit "${collection_status}"
+          fi
+          echo "::error title=Optional backend evidence required::optional_backend tests exist, but this hosted lane intentionally installs no optional mathematics system. Configure a dedicated capability runner; do not silently skip these tests."
+          exit 1
+
+  legacy-algmul:
+    name: Scheduled legacy AlgMul evidence
+    needs: reference-full
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install the neutral core before legacy capability discovery
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+          python -I -c "import anyalgebra; print(anyalgebra.__version__)"
+      - name: Run a compatible licensed-kernel audit when available
+        shell: bash
+        run: |
+          set +e
+          python -m pytest --collect-only -q -m legacy
+          collection_status=$?
+          set -e
+          if [[ "${collection_status}" -eq 5 ]]; then
+            echo "::notice title=Legacy lane skipped::Pytest collected no legacy tests in this revision. This is an absence record, not passing legacy evidence."
+            exit 0
+          fi
+          if [[ "${collection_status}" -ne 0 ]]; then
+            echo "::error title=Legacy collection failed::Pytest could not collect the legacy selection; this is not a passing evidence result."
+            exit "${collection_status}"
+          fi
+          if ! command -v wolframscript >/dev/null 2>&1; then
+            echo "::notice title=Legacy lane skipped::No licensed compatible Mathematica kernel is available on this hosted runner. This is an unavailable-evidence record, not passing legacy evidence; the required reference-full job remains required and has already tested the neutral core."
+            exit 0
+          fi
+          wolframscript -version
+          python -m pytest -q -m legacy

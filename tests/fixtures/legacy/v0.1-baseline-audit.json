@@ -1,0 +1,38 @@
+{
+  "algmul": {
+    "active": {
+      "bytes": 194003,
+      "role": "external-working-source",
+      "sha256": "2752CF4A6146E97CAE0EB093725641F9A03D9AF2410D30CBBA7721594C60F98E"
+    },
+    "differences": [
+      {
+        "kind": "expression-edit",
+        "line": 1414
+      },
+      {
+        "kind": "notebook-metadata-edit",
+        "line": 2968
+      }
+    ],
+    "pinnedReceipt": {
+      "bytes": 194012,
+      "sha256": "3A13C9F47092B5B9814AA08873FF4F1DE61D4635DF68FC7F3A039A7DA5B0D00D"
+    }
+  },
+  "fullSuite": {
+    "failed": 36,
+    "passed": 2025,
+    "seconds": 281.34,
+    "skipped": 1
+  },
+  "observedOn": "2026-08-15",
+  "resolution": {
+    "baselineClassification": "expected-fail-closed-external-working-source-drift",
+    "receiptRepinned": false,
+    "sourceOverwritten": false,
+    "status": "known-drift-preserved"
+  },
+  "schemaVersion": 1,
+  "taskId": "V01-001"
+}

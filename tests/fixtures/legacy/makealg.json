@@ -1,0 +1,924 @@
+{
+  "schemaType": "AnyAlgebra.AlgMulMakeAlgAudit",
+  "schemaVersion": "1",
+  "source": {
+    "path": "${ANYALGEBRA_ALGMUL_SOURCE}",
+    "sha256": "3A13C9F47092B5B9814AA08873FF4F1DE61D4635DF68FC7F3A039A7DA5B0D00D",
+    "bytes": 194012
+  },
+  "boundFixtures": {
+    "runtimeLoad": {
+      "path": "runtime-load.json",
+      "sha256": "AEA955F5484DDAB0B8BB1FAF9A2417095DABB889B3467EBC67571E0CDA34E2EE"
+    },
+    "generatedLifts": {
+      "path": "generated-lifts.json",
+      "sha256": "EE288652276C3BC318B17CB28C5006D9E7D582A16F566397CE84929C4FA8A904"
+    }
+  },
+  "kernel": {
+    "versionNumber": "12.0",
+    "freshProcess": true,
+    "adapter": "anyalgebra.legacy.mathematica.MathematicaAdapter"
+  },
+  "capture": {
+    "schema": "AnyAlgebra.AlgMulMakeAlgRecipe.v1",
+    "freshProcessPerScenario": true,
+    "prewarmedBaseline": {
+      "context": "Global`",
+      "contextPath": [
+        "System`",
+        "Global`"
+      ],
+      "globals": [
+        "args",
+        "dims",
+        "WolframScript"
+      ]
+    },
+    "rawFraming": {
+      "begin": "V87_BEGIN",
+      "end": "V87_END",
+      "payload": "ExportString[association,RawJSON]",
+      "loadMessages": [
+        "HoldForm[AlgMul`n::shdw]",
+        "HoldForm[AlgMul`s::shdw]",
+        "HoldForm[AlgMul`x::shdw]"
+      ],
+      "sameProcessSecondLoadMessages": [],
+      "helperGlobalDelta": []
+    }
+  },
+  "captureRecipe": {
+    "schema": "AnyAlgebra.AlgMulMakeAlgCaptureRecipe.v1",
+    "freshProcessPerScenario": true,
+    "adapter": {
+      "module": "anyalgebra.legacy.mathematica.MathematicaAdapter",
+      "requiredVersion": "12.0",
+      "timeoutSeconds": 120,
+      "maxOutputBytes": 1048576
+    },
+    "template": "$Context=\"Global`\";$ContextPath={\"System`\",\"Global`\"};\nv87zzSha[x_]:=ToUpperCase[IntegerString[Hash[x,\"SHA256\"],16,64]];\nv87zzRecord[n_String]:=ToExpression[n,InputForm,Function[s,<|\"name\"->n,\"context\"->Context[s],\"attributes\"->(ToString[#,InputForm]&/@Attributes[s]),\"ownValueCount\"->Length[OwnValues[s]],\"downValueCount\"->Length[DownValues[s]],\"upValueCount\"->Length[UpValues[s]],\"subValueCount\"->Length[SubValues[s]],\"definitionHash\"->v87zzSha[ToString[{OwnValues[s],DownValues[s],UpValues[s],SubValues[s],Attributes[s]},InputForm]]|>,HoldAll]];\nv87zzLoad=.;v87zzLoadTags=.;v87zzResult=.;v87zzActionTags=.;v87zzBefore=.;v87zzAfter=.;v87zzPrewarm=.;v87zzHarnessGlobals=.;v87zzHarnessContexts=.;v87zzEvidence=.;v87zzSymbols=.;\nv87zzSnapshot[]:=<|\"globals\"->Complement[Names[\"Global`*\"],v87zzHarnessGlobals],\"contexts\"->Complement[Contexts[],v87zzHarnessContexts],\"algebras\"->AlgMul`alg[\"algs\"],\"routes\"->AssociationMap[ToString[AlgMul`alg[\"Mul\"][#],InputForm]&,AlgMul`alg[\"algs\"]],\"algDefinitionHash\"->v87zzRecord[\"AlgMul`alg\"][\"definitionHash\"]|>;\nBlock[{$MessageList={}},v87zzLoad=Get[Environment[\"ANYALGEBRA_ALGMUL_SOURCE\"]];v87zzLoadTags=(ToString[#,InputForm]&/@$MessageList)];\nv87zzPrewarm={v87zzSnapshot[],v87zzSha[\"\"],Names[\"Global`*\"],Contexts[],ExportString[<||>,\"RawJSON\"]};\nv87zzHarnessGlobals=Names[\"Global`*\"];v87zzHarnessContexts=Contexts[];\nv87zzBefore=v87zzSnapshot[];\nBlock[{$MessageList={}},v87zzResult=({{ACTION}});v87zzActionTags=(ToString[#,InputForm]&/@$MessageList)];\nv87zzEvidence=({{EXTRACT}});v87zzSymbols=(v87zzRecord/@{{TARGETS}});\nv87zzAfter=v87zzSnapshot[];\nPrint[\"V87_BEGIN\"];Print[ExportString[<|\"sourceLoadResult\"->ToString[v87zzLoad,InputForm],\"sourceLoadMessageTags\"->v87zzLoadTags,\"before\"->v87zzBefore,\"actionResult\"->ToString[v87zzResult,InputForm],\"actionMessageTags\"->v87zzActionTags,\"after\"->v87zzAfter,\"evidence\"->v87zzEvidence,\"symbols\"->v87zzSymbols|>,\"RawJSON\"]];Print[\"V87_END\"];\n",
+    "scenarios": [
+      {
+        "id": "load",
+        "action": "Null",
+        "targets": [
+          "AlgMul`alg",
+          "AlgMul`MakeAlg"
+        ],
+        "extract": "<|\"kind\"->\"load\"|>"
+      },
+      {
+        "id": "valid-makealg",
+        "action": "AlgMul`MakeAlg[\"AuditC\",{1,Symbol[\"Global`auditE1\"]},{{{1,0},{0,1}},{{0,1},{-1,0}}}]",
+        "targets": [
+          "AlgMul`alg",
+          "AlgMul`MakeAlg",
+          "Global`auditE1"
+        ],
+        "extract": "<|\"chars\"->ToString[AlgMul`alg[\"chars\"][\"AuditC\"],InputForm],\"structDot\"->ToString[AlgMul`alg[\"StructDot\"][\"AuditC\"],InputForm]|>"
+      },
+      {
+        "id": "boundary-makealg",
+        "action": "AlgMul`MakeAlg[42,\"not-a-list\",7]",
+        "targets": [
+          "AlgMul`alg",
+          "AlgMul`MakeAlg"
+        ],
+        "extract": "<|\"chars\"->ToString[AlgMul`alg[\"chars\"][42],InputForm],\"structDot\"->ToString[AlgMul`alg[\"StructDot\"][42],InputForm]|>"
+      },
+      {
+        "id": "wrong-arity",
+        "action": "AlgMul`MakeAlg[]",
+        "targets": [
+          "AlgMul`MakeAlg"
+        ],
+        "extract": "<|\"held\"->ToString[AlgMul`MakeAlg[],InputForm]|>"
+      },
+      {
+        "id": "son-one",
+        "action": "AlgMul`MakeSOnFund[2,Symbol[\"Global`auditG\"],\"auditso\"]",
+        "targets": [
+          "AlgMul`MakeSOnFund",
+          "AlgMul`alg",
+          "Global`auditG"
+        ],
+        "extract": "<|\"chars\"->ToString[AlgMul`alg[\"chars\"][\"auditso(2)\"],InputForm]|>"
+      },
+      {
+        "id": "son-two",
+        "action": "AlgMul`MakeSOnFund[1,1,Symbol[\"Global`auditG\"],\"auditso\"]",
+        "targets": [
+          "AlgMul`MakeSOnFund",
+          "AlgMul`alg",
+          "Global`auditG"
+        ],
+        "extract": "<|\"chars\"->ToString[AlgMul`alg[\"chars\"][\"auditso(1,1)\"],InputForm]|>"
+      },
+      {
+        "id": "sun-one-default",
+        "action": "AlgMul`MakeSUnFund[2]",
+        "targets": [
+          "AlgMul`MakeSUnFund",
+          "AlgMul`alg"
+        ],
+        "extract": "<|\"chars\"->ToString[AlgMul`alg[\"chars\"][\"su(2)\"],InputForm]|>"
+      },
+      {
+        "id": "sun-two",
+        "action": "AlgMul`MakeSUnFund[1,1,Symbol[\"Global`auditG\"],\"auditsu\"]",
+        "targets": [
+          "AlgMul`MakeSUnFund",
+          "AlgMul`alg",
+          "Global`auditG"
+        ],
+        "extract": "<|\"chars\"->ToString[AlgMul`alg[\"chars\"][\"auditsu(1,1)\"],InputForm]|>"
+      },
+      {
+        "id": "spn-one",
+        "action": "AlgMul`MakeSPnFund[1]",
+        "targets": [
+          "AlgMul`MakeSPnFund",
+          "AlgMul`alg"
+        ],
+        "extract": "<|\"kind\"->\"spn-one\"|>"
+      },
+      {
+        "id": "spn-two",
+        "action": "AlgMul`MakeSPnFund[1,1]",
+        "targets": [
+          "AlgMul`MakeSPnFund",
+          "AlgMul`alg"
+        ],
+        "extract": "<|\"kind\"->\"spn-two\"|>"
+      },
+      {
+        "id": "repeat-named-makealg-second-get",
+        "action": "(AlgMul`MakeAlg[\"AuditReload\",{1,Symbol[\"Global`auditReloadE1\"]},{{{1,0},{0,1}},{{0,1},{-1,0}}}];Get[Environment[\"ANYALGEBRA_ALGMUL_SOURCE\"]])",
+        "targets": [
+          "AlgMul`alg",
+          "AlgMul`MakeAlg",
+          "Global`auditReloadE1"
+        ],
+        "extract": "<|\"charsAfterSecondGet\"->ToString[AlgMul`alg[\"chars\"][\"AuditReload\"],InputForm],\"structDotAfterSecondGet\"->ToString[AlgMul`alg[\"StructDot\"][\"AuditReload\"],InputForm]|>"
+      }
+    ],
+    "substitution": {
+      "ACTION": "replace the sole {{ACTION}} token with scenario.action as Wolfram Language input",
+      "TARGETS": "replace the sole {{TARGETS}} token with a Wolfram list of quoted scenario.targets",
+      "EXTRACT": "replace the sole {{EXTRACT}} token with scenario.extract as Wolfram Language input"
+    },
+    "sha256": "FAAAAE43E86155366C4D15D8678E58EE3F3784594BFBA39E810DD41C8826496D"
+  },
+  "liveReplay": {
+    "sourceLoadResult": "Null",
+    "sourceLoadMessageTags": [
+      "HoldForm[AlgMul`n::shdw]",
+      "HoldForm[AlgMul`s::shdw]",
+      "HoldForm[AlgMul`x::shdw]"
+    ],
+    "scenarios": [
+      {
+        "id": "load",
+        "actionResult": "Null",
+        "actionMessageTags": [],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "evidence": {
+          "kind": "load"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 62,
+            "definitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B"
+          },
+          {
+            "name": "AlgMul`MakeAlg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "C022BA846FF0ABFC1E91A626A3381A9971FD99397292A8091FD7779158128DEC"
+          }
+        ]
+      },
+      {
+        "id": "valid-makealg",
+        "actionResult": "{1, auditE1}",
+        "actionMessageTags": [],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "0080305FAAA840A4490B0F723FE809133E806AC64EB0074E319B0E6206A45934",
+          "contexts": [],
+          "globals": [
+            "auditE1"
+          ]
+        },
+        "evidence": {
+          "chars": "{1, auditE1}",
+          "structDot": "{{{1, 0}, {0, 1}}, {{0, 1}, {-1, 0}}}"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 64,
+            "definitionHash": "0080305FAAA840A4490B0F723FE809133E806AC64EB0074E319B0E6206A45934"
+          },
+          {
+            "name": "AlgMul`MakeAlg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "C022BA846FF0ABFC1E91A626A3381A9971FD99397292A8091FD7779158128DEC"
+          },
+          {
+            "name": "Global`auditE1",
+            "context": "Global`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 0,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+          }
+        ]
+      },
+      {
+        "id": "boundary-makealg",
+        "actionResult": "\"not-a-list\"",
+        "actionMessageTags": [],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "AA8F227BBACF0E33E0A577C9D48CEC410431E8DA3D10CBDE76E8D3048A201B0A",
+          "contexts": [],
+          "globals": []
+        },
+        "evidence": {
+          "chars": "\"not-a-list\"",
+          "structDot": "7"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 64,
+            "definitionHash": "AA8F227BBACF0E33E0A577C9D48CEC410431E8DA3D10CBDE76E8D3048A201B0A"
+          },
+          {
+            "name": "AlgMul`MakeAlg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "C022BA846FF0ABFC1E91A626A3381A9971FD99397292A8091FD7779158128DEC"
+          }
+        ]
+      },
+      {
+        "id": "wrong-arity",
+        "actionResult": "AlgMul`MakeAlg[]",
+        "actionMessageTags": [],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "evidence": {
+          "held": "AlgMul`MakeAlg[]"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`MakeAlg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "C022BA846FF0ABFC1E91A626A3381A9971FD99397292A8091FD7779158128DEC"
+          }
+        ]
+      },
+      {
+        "id": "son-one",
+        "actionResult": "{auditG[1], auditG[2]}",
+        "actionMessageTags": [
+          "HoldForm[SparseArray::list]"
+        ],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "86149510E6155ED609E2F5DBD13B23508C84759CAA9AF6DA12328C56829A74F6",
+          "contexts": [],
+          "globals": [
+            "auditG"
+          ]
+        },
+        "evidence": {
+          "chars": "{auditG[1], auditG[2]}"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`MakeSOnFund",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 2,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "C77755E9B8CFBC0403FA85520C6904437E2F8AA7E75617CC354516F01A03794A"
+          },
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 64,
+            "definitionHash": "86149510E6155ED609E2F5DBD13B23508C84759CAA9AF6DA12328C56829A74F6"
+          },
+          {
+            "name": "Global`auditG",
+            "context": "Global`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 0,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+          }
+        ]
+      },
+      {
+        "id": "son-two",
+        "actionResult": "{auditG[1], auditG[2]}",
+        "actionMessageTags": [
+          "HoldForm[SparseArray::list]"
+        ],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "0FB0E18A87A4E785FE6475E67BDB8E1D27FC8A9EC014DDA835826338B0563705",
+          "contexts": [],
+          "globals": [
+            "auditG"
+          ]
+        },
+        "evidence": {
+          "chars": "{auditG[1], auditG[2]}"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`MakeSOnFund",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 2,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "C77755E9B8CFBC0403FA85520C6904437E2F8AA7E75617CC354516F01A03794A"
+          },
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 64,
+            "definitionHash": "0FB0E18A87A4E785FE6475E67BDB8E1D27FC8A9EC014DDA835826338B0563705"
+          },
+          {
+            "name": "Global`auditG",
+            "context": "Global`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 0,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+          }
+        ]
+      },
+      {
+        "id": "sun-one-default",
+        "actionResult": "{AlgMul`g[1], AlgMul`g[2]}",
+        "actionMessageTags": [
+          "HoldForm[SparseArray::list]"
+        ],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "53AD79501FE526F7BD4B611C6512692768694F3C2CB840E69B174F9B23F5694F",
+          "contexts": [],
+          "globals": []
+        },
+        "evidence": {
+          "chars": "{AlgMul`g[1], AlgMul`g[2]}"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`MakeSUnFund",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 2,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "51F29CDA7092F94726AE21A40379AB6EB3B301F2B1DB8C0DC861DF592816E136"
+          },
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 64,
+            "definitionHash": "53AD79501FE526F7BD4B611C6512692768694F3C2CB840E69B174F9B23F5694F"
+          }
+        ]
+      },
+      {
+        "id": "sun-two",
+        "actionResult": "{auditG[1], auditG[2]}",
+        "actionMessageTags": [
+          "HoldForm[SparseArray::list]"
+        ],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "A8D8DE0D4CFEF6977D6D402BDDD3EEB29FE67D4E63F1FCD76CA15360193FFDFC",
+          "contexts": [],
+          "globals": [
+            "auditG"
+          ]
+        },
+        "evidence": {
+          "chars": "{auditG[1], auditG[2]}"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`MakeSUnFund",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 2,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "51F29CDA7092F94726AE21A40379AB6EB3B301F2B1DB8C0DC861DF592816E136"
+          },
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 64,
+            "definitionHash": "A8D8DE0D4CFEF6977D6D402BDDD3EEB29FE67D4E63F1FCD76CA15360193FFDFC"
+          },
+          {
+            "name": "Global`auditG",
+            "context": "Global`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 0,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+          }
+        ]
+      },
+      {
+        "id": "spn-one",
+        "actionResult": "{}",
+        "actionMessageTags": [],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "evidence": {
+          "kind": "spn-one"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`MakeSPnFund",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 2,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "DA1CC6C31597B2A8C89A09311FA2BA0065F9A572300228C968A21B16CE9D3C26"
+          },
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 62,
+            "definitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B"
+          }
+        ]
+      },
+      {
+        "id": "spn-two",
+        "actionResult": "{}",
+        "actionMessageTags": [],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "evidence": {
+          "kind": "spn-two"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`MakeSPnFund",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 2,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "DA1CC6C31597B2A8C89A09311FA2BA0065F9A572300228C968A21B16CE9D3C26"
+          },
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 62,
+            "definitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B"
+          }
+        ]
+      },
+      {
+        "id": "repeat-named-makealg-second-get",
+        "actionResult": "Null",
+        "actionMessageTags": [],
+        "before": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": []
+        },
+        "after": {
+          "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+          "contexts": [],
+          "globals": [
+            "auditReloadE1"
+          ]
+        },
+        "evidence": {
+          "charsAfterSecondGet": "AlgMul`alg[\"chars\"][\"AuditReload\"]",
+          "structDotAfterSecondGet": "AlgMul`alg[\"StructDot\"][\"AuditReload\"]"
+        },
+        "symbols": [
+          {
+            "name": "AlgMul`alg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 62,
+            "definitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B"
+          },
+          {
+            "name": "AlgMul`MakeAlg",
+            "context": "AlgMul`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 1,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "C022BA846FF0ABFC1E91A626A3381A9971FD99397292A8091FD7779158128DEC"
+          },
+          {
+            "name": "Global`auditReloadE1",
+            "context": "Global`",
+            "attributes": [],
+            "ownValueCount": 0,
+            "downValueCount": 0,
+            "upValueCount": 0,
+            "subValueCount": 0,
+            "definitionHash": "9220276CACAEAC75CFD1905068507388D617C29233DB39CFD3062E71144A4E01"
+          }
+        ]
+      }
+    ]
+  },
+  "symbols": {
+    "AlgMul`alg": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B",
+    "AlgMul`AddAlgName": "3497EF211E28D123C211D7940B98F4C2110421DD5BFE0F75FA8B3100E76FE464",
+    "AlgMul`MakeChar": "F41A4252D44D094186042F521E775C2BCF20823794CB52DD6818BC5C204D11A9",
+    "AlgMul`MakeAlg": "C022BA846FF0ABFC1E91A626A3381A9971FD99397292A8091FD7779158128DEC",
+    "AlgMul`MakeSOnFund": "C77755E9B8CFBC0403FA85520C6904437E2F8AA7E75617CC354516F01A03794A",
+    "AlgMul`MakeSUnFund": "51F29CDA7092F94726AE21A40379AB6EB3B301F2B1DB8C0DC861DF592816E136",
+    "AlgMul`MakeSPnFund": "DA1CC6C31597B2A8C89A09311FA2BA0065F9A572300228C968A21B16CE9D3C26",
+    "AlgMul`AlgToChars": "D905B202CD2C6ABC9C101F4086114CEAA9EF4526548566A0DCE7A438C7EB81F6",
+    "AlgMul`CharsToAlg": "8265977BEDAAE44E58CF16CF0E85FCB2C98EB91C3B138F6FC8B53BC7822079CE",
+    "AlgMul`StructMul": "154AC227B8DACEF608BDE285A0A5E530D61F9D2B72F2FCF38770F93938CA755E"
+  },
+  "load": {
+    "algebras": [
+      "O",
+      "H",
+      "C",
+      "O2",
+      "H2",
+      "C2",
+      "O3",
+      "H3",
+      "C3",
+      "Os",
+      "Hs",
+      "Cs",
+      "Os2",
+      "Hs2",
+      "Cs2",
+      "Os3",
+      "Hs3",
+      "Cs3",
+      "CxH",
+      "D"
+    ],
+    "routes": {
+      "O": "AlgMul`OMul",
+      "H": "AlgMul`HMul",
+      "C": "AlgMul`CMul",
+      "O2": "AlgMul`OMul",
+      "H2": "AlgMul`HMul",
+      "C2": "AlgMul`CMul",
+      "O3": "AlgMul`OMul",
+      "H3": "AlgMul`HMul",
+      "C3": "AlgMul`CMul",
+      "Os": "AlgMul`OsMul",
+      "Hs": "AlgMul`HsMul",
+      "Cs": "AlgMul`CsMul",
+      "Os2": "AlgMul`OsMul",
+      "Hs2": "AlgMul`HsMul",
+      "Cs2": "AlgMul`CsMul",
+      "Os3": "AlgMul`OsMul",
+      "Hs3": "AlgMul`HsMul",
+      "Cs3": "AlgMul`CsMul",
+      "CxH": "AlgMul`CxHMul",
+      "D": "AlgMul`DMul"
+    }
+  },
+  "makeAlg": {
+    "valid": {
+      "name": "AuditC",
+      "chars": "{1, auditE1}",
+      "structDot": "{{{1, 0}, {0, 1}}, {{0, 1}, {-1, 0}}}",
+      "structMul": "{1, 0}",
+      "algToChars": "{1, auditE1}",
+      "charsToAlg": "{}",
+      "registryDelta": [],
+      "route": "AlgMul`alg[\"Mul\"][\"AuditC\"]",
+      "globalDelta": [
+        "auditE1"
+      ]
+    },
+    "boundary": {
+      "arguments": [
+        42,
+        "not-a-list",
+        7
+      ],
+      "storedChars": "\"not-a-list\"",
+      "storedStructDot": "7",
+      "registered": false,
+      "route": "AlgMul`alg[\"Mul\"][42]"
+    },
+    "wrongArity": {
+      "input": "AlgMul`MakeAlg[]",
+      "result": "AlgMul`MakeAlg[]",
+      "messages": []
+    }
+  },
+  "constructors": {
+    "sonOne": {
+      "call": "MakeSOnFund[2,auditG,auditso]",
+      "result": "{auditG[1], auditG[2]}",
+      "messages": [
+        "SparseArray::list"
+      ],
+      "structDotHead": "Transpose",
+      "registered": false,
+      "routeDefined": false,
+      "globalDelta": [
+        "auditG"
+      ]
+    },
+    "sonTwo": {
+      "call": "MakeSOnFund[1,1,auditG,auditso]",
+      "result": "{auditG[1], auditG[2]}",
+      "messages": [
+        "SparseArray::list"
+      ],
+      "structDotHead": "Transpose",
+      "registered": false,
+      "routeDefined": false,
+      "globalDelta": [
+        "auditG"
+      ]
+    },
+    "sunOneDefault": {
+      "call": "MakeSUnFund[2]",
+      "result": "{AlgMul`g[1], AlgMul`g[2]}",
+      "messages": [
+        "SparseArray::list"
+      ],
+      "structDotHead": "Transpose",
+      "registered": false,
+      "routeDefined": false,
+      "globalDelta": []
+    },
+    "sunTwo": {
+      "call": "MakeSUnFund[1,1,auditG,auditsu]",
+      "result": "{auditG[1], auditG[2]}",
+      "messages": [
+        "SparseArray::list"
+      ],
+      "structDotHead": "Transpose",
+      "registered": false,
+      "routeDefined": false,
+      "globalDelta": [
+        "auditG"
+      ]
+    },
+    "spnOne": {
+      "call": "MakeSPnFund[1]",
+      "result": "{}",
+      "messages": [],
+      "structDotHead": "AlgMul`alg[\"StructDot\"]",
+      "registered": false,
+      "routeDefined": false,
+      "globalDelta": []
+    },
+    "spnTwo": {
+      "call": "MakeSPnFund[1,1]",
+      "result": "{}",
+      "messages": [],
+      "structDotHead": "AlgMul`alg[\"StructDot\"]",
+      "registered": false,
+      "routeDefined": false,
+      "globalDelta": []
+    }
+  },
+  "repeatedLoad": {
+    "afterNamedMakeAlg": {
+      "algebraCount": 20,
+      "registered": false,
+      "chars": "{1, auditReloadE1}",
+      "structDot": "{{{1, 0}, {0, 1}}, {{0, 1}, {-1, 0}}}",
+      "route": "AlgMul`alg[\"Mul\"][\"AuditReload\"]",
+      "globals": [
+        "args",
+        "auditReloadE1",
+        "dims",
+        "WolframScript"
+      ],
+      "algDefinitionHash": "AF4E982F8B24ED8CD7D03EE00FB7EB3F633E4A357AEED522ECFED26829EF5C7E"
+    },
+    "afterSecondGet": {
+      "algebraCount": 20,
+      "registered": false,
+      "chars": "AlgMul`alg[\"chars\"][\"AuditReload\"]",
+      "structDot": "AlgMul`alg[\"StructDot\"][\"AuditReload\"]",
+      "route": "AlgMul`alg[\"Mul\"][\"AuditReload\"]",
+      "globals": [
+        "args",
+        "auditReloadE1",
+        "dims",
+        "WolframScript"
+      ],
+      "algDefinitionHash": "75568E6BB1A75B98FD0A56C2BE3340CC2CAD6E1F6B27CFA47B4DD9BA4CA7359B"
+    }
+  },
+  "independentOracle": {
+    "structureTensor": [
+      [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      [
+        [
+          0,
+          1
+        ],
+        [
+          -1,
+          0
+        ]
+      ]
+    ],
+    "left": [
+      0,
+      1
+    ],
+    "right": [
+      0,
+      1
+    ],
+    "expected": [
+      1,
+      0
+    ],
+    "classification": "The tensor contraction independently checks the captured coordinate product; it does not endorse legacy registration or constructor behavior."
+  },
+  "limitations": {
+    "observedDefects": [
+      "The load emits n, s, and x shadowing messages under the frozen Global context.",
+      "SOn/SUn smallest constructor cases emit SparseArray::list and retain an unresolved Transpose structure.",
+      "MakeAlg accepts arbitrary names and payloads without registration or multiplication routing."
+    ],
+    "nonGoals": [
+      "No V88 MakeProperty exercise.",
+      "No V89 dispositions.",
+      "No V90 parity closure.",
+      "No mathematical or scientific correctness claims."
+    ]
+  }
+}

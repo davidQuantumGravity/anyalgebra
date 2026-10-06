@@ -1,0 +1,37 @@
+# Python caches and local test state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+.venv/
+*.egg-info/
+
+# Generated documentation and build products
+build/
+dist/
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Local rendering and review output
+/output/
+
+# Unpublished research notes and manuscripts stay local until they are
+# published through their own channel.
+/docs/research/
+
+# Internal engineering process records, task queues, and context packs
+/.agents/
+
+# Local editor and operating-system state
+/tmp/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

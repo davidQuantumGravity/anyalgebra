@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "status": "bounded-control-evidence",
+  "corpora": [
+    {
+      "id": "v01-comm-idem-magma-n2",
+      "carrierSize": 2,
+      "arity": 2,
+      "constraintProfile": "commutative_idempotent",
+      "expectedRawCount": 16,
+      "expectedAcceptedCount": 2,
+      "independentDerivation": "The diagonal is fixed and one unordered off-diagonal pair remains free: 2^1 = 2.",
+      "independentMethod": "unordered_off_diagonal_pairs",
+      "specHash": "sha256:953a83e46d7c71c6e147d77712e03a60f192b702bc4064c6cfff0f51814b3f22"
+    },
+    {
+      "id": "v01-comm-idem-magma-n3",
+      "carrierSize": 3,
+      "arity": 2,
+      "constraintProfile": "commutative_idempotent",
+      "expectedRawCount": 19683,
+      "expectedAcceptedCount": 27,
+      "independentDerivation": "The diagonal is fixed and three unordered off-diagonal pairs remain free: 3^3 = 27.",
+      "independentMethod": "unordered_off_diagonal_pairs",
+      "specHash": "sha256:d5bdda67b7e388606f927b17989f581c74d9f2695dfb08166dba50ad43eca1d3"
+    },
+    {
+      "id": "v01-comm-magma-n2",
+      "carrierSize": 2,
+      "arity": 2,
+      "constraintProfile": "commutative",
+      "expectedRawCount": 16,
+      "expectedAcceptedCount": 8,
+      "independentDerivation": "A commutative table is determined by three unordered input pairs, each with two outputs: 2^3 = 8.",
+      "independentMethod": "unordered_binary_input_pairs",
+      "specHash": "sha256:9b05317ffb67496c290120146fe0038d0ad9dbfadaf9e5dbb311e990c8513809"
+    },
+    {
+      "id": "v01-comm-magma-n3",
+      "carrierSize": 3,
+      "arity": 2,
+      "constraintProfile": "commutative",
+      "expectedRawCount": 19683,
+      "expectedAcceptedCount": 729,
+      "independentDerivation": "A commutative table is determined by six unordered input pairs, each with three outputs: 3^6 = 729.",
+      "independentMethod": "unordered_binary_input_pairs",
+      "specHash": "sha256:f79de4cfefe0e80dabf4b393f4044958754dc5fc48bc5344475dfb869a69c863"
+    },
+    {
+      "id": "v01-idempotent-magma-n2",
+      "carrierSize": 2,
+      "arity": 2,
+      "constraintProfile": "idempotent",
+      "expectedRawCount": 16,
+      "expectedAcceptedCount": 4,
+      "independentDerivation": "Idempotence fixes two diagonal cells and leaves two binary cells free: 2^2 = 4.",
+      "independentMethod": "fixed_diagonal_cells",
+      "specHash": "sha256:3b902c3be7456c02b4387230c6deb8fabbb1d7f487c8eba43d257c010ffb14d6"
+    },
+    {
+      "id": "v01-idempotent-magma-n3",
+      "carrierSize": 3,
+      "arity": 2,
+      "constraintProfile": "idempotent",
+      "expectedRawCount": 19683,
+      "expectedAcceptedCount": 729,
+      "independentDerivation": "Idempotence fixes three diagonal cells and leaves six binary cells free: 3^6 = 729.",
+      "independentMethod": "fixed_diagonal_cells",
+      "specHash": "sha256:dedf7a7914dbe2d991a9f68426f7ff4a63041c77dc3dd943a3d674d238fdb145"
+    },
+    {
+      "id": "v01-pointed-magma-n2",
+      "carrierSize": 2,
+      "arity": 2,
+      "constraintProfile": "identity0_two_sided",
+      "expectedRawCount": 16,
+      "expectedAcceptedCount": 2,
+      "independentDerivation": "A two-sided identity fixes three cells of the order-two table and leaves one cell free: 2^1 = 2.",
+      "independentMethod": "two_sided_identity_cells",
+      "specHash": "sha256:4715139f74d465a7dd57dc24a35610826350cc2ffaf0b1152c519f9555365f01"
+    },
+    {
+      "id": "v01-pointed-magma-n3",
+      "carrierSize": 3,
+      "arity": 2,
+      "constraintProfile": "identity0_two_sided",
+      "expectedRawCount": 19683,
+      "expectedAcceptedCount": 81,
+      "independentDerivation": "A two-sided identity fixes five cells of the order-three table and leaves four cells free: 3^4 = 81.",
+      "independentMethod": "two_sided_identity_cells",
+      "specHash": "sha256:b3577937b9c41533502fa41c7807cce5de53069a03632c8e234857d4882b054e"
+    },
+    {
+      "id": "v01-quasigroup-n2",
+      "carrierSize": 2,
+      "arity": 2,
+      "constraintProfile": "quasigroup",
+      "expectedRawCount": 16,
+      "expectedAcceptedCount": 2,
+      "independentDerivation": "Enumerating the 2! possible rows twice and retaining permutation columns gives two Latin squares.",
+      "independentMethod": "independent_latin_square_rows",
+      "specHash": "sha256:1dd19c13f27ff03ad3345a51c79e0af9bf172268b42119214ad8ce6263fd3b61"
+    },
+    {
+      "id": "v01-quasigroup-n3",
+      "carrierSize": 3,
+      "arity": 2,
+      "constraintProfile": "quasigroup",
+      "expectedRawCount": 19683,
+      "expectedAcceptedCount": 12,
+      "independentDerivation": "Enumerating the 3! possible rows three times and retaining permutation columns gives twelve Latin squares.",
+      "independentMethod": "independent_latin_square_rows",
+      "specHash": "sha256:5fe9f3de0c01570863921054565aba0038893ea738b9ba3c3e074ca894fda706"
+    },
+    {
+      "id": "v01-unary-all-n2",
+      "carrierSize": 2,
+      "arity": 1,
+      "constraintProfile": "none",
+      "expectedRawCount": 4,
+      "expectedAcceptedCount": 4,
+      "independentDerivation": "Each of two inputs independently chooses one of two outputs, so there are 2^2 = 4 unary maps.",
+      "independentMethod": "all_total_operations",
+      "specHash": "sha256:0a2fd1281ada232dde20d8a0497d7a93424186ade4a2114e724b4a3dc58df0ac"
+    },
+    {
+      "id": "v01-unary-all-n3",
+      "carrierSize": 3,
+      "arity": 1,
+      "constraintProfile": "none",
+      "expectedRawCount": 27,
+      "expectedAcceptedCount": 27,
+      "independentDerivation": "Each of three inputs independently chooses one of three outputs, so there are 3^3 = 27 unary maps.",
+      "independentMethod": "all_total_operations",
+      "specHash": "sha256:8ae9de49be752020ad874bdea4cff9b422708b8aa1f845ba18be6f56d70e62fc"
+    }
+  ]
+}
