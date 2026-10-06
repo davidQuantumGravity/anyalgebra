@@ -53,8 +53,11 @@ script, for instance:
 
 ```powershell
 python examples/octonion_counterexample.py
-python examples/finite_algebra_atlas.py
+python examples/finite_algebra_atlas.py --output "$PWD/atlas-demo"
 ```
+
+The atlas example writes into the folder named by `--output`. That path must
+be absolute and must not exist yet.
 
 ## What can I do with it now?
 
@@ -152,7 +155,8 @@ uv run python -m pytest -q -m "not legacy and not optional_backend"
 
 Two release tools build temporary wheel and source distributions, clean-install
 them, and reproduce the reference atlas from each. They do not retain or
-publish anything:
+publish anything. Both run `uv` and by default use only its local cache; add
+`--allow-network` to let it download the build backend:
 
 ```powershell
 python tools/check_v0_1_artifacts.py .

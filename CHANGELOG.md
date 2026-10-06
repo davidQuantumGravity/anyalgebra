@@ -14,6 +14,12 @@
 - Rewrote the README around installation and a first calculation, added
   `CITATION.cff`, removed the CI steps that required the internal records, and
   raised the CI job time limits to fit the neutral suite.
+- Made two coverage tests independent of how the interpreter checks runtime
+  protocols. Before Python 3.12 that check reads each protocol property, so
+  the tests failed on Python 3.11 although the library behaved correctly.
+- Corrected the README command for the atlas example, which needs an output
+  folder, and separated the status-page checks that run in any checkout from
+  the two that read maintainer records.
 
 ### Experimental namespace review
 

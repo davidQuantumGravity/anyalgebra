@@ -16,6 +16,13 @@ evaluation and composition-algebra controls used to test that machinery. This
 is an engineering and bounded-computation claim, not a general classification
 of finite algebras or completion of the broader exceptional-physics program.
 
+The figures in this table are the frozen record of that checkpoint, measured
+on the maintainer's complete working tree. This repository leaves out internal
+process records and research modules that are not published yet, so a checkout
+of it runs a smaller selection: on 2026-10-05 its neutral suite ran about
+2,330 tests at 96 percent combined statement and branch coverage, and the
+tests that audit internal records skipped with an explicit reason.
+
 | Status dimension | Current state | Evidence or meaning |
 |---|---|---|
 | Source version | `0.1.0` | `src/anyalgebra/_version.py` |
@@ -96,15 +103,23 @@ failures and are not silently redefined as parity.
 
 ## Reproduce the candidate checks
 
-From the repository root:
+From the repository root, with the development dependencies installed:
 
 ```powershell
-.venv\Scripts\python -m pytest -q -m "not legacy and not optional_backend"
-.venv\Scripts\python tools/audit_v0_1_traceability.py --no-execute
-.venv\Scripts\python tools/check_v0_1_artifacts.py
-.venv\Scripts\python tools/reproduce_v0_1_atlas.py
-.venv\Scripts\python tools/validate_project_contract.py .
+python -m pytest -q -m "not legacy and not optional_backend"
+python tools/check_v0_1_artifacts.py .
+python tools/reproduce_v0_1_atlas.py .
 ```
 
 The artifact and reproduction tools build temporary isolated environments.
 They do not tag Git, retain a signed release bundle, or publish a distribution.
+The reproduction tool reports the atlas semantic hash recorded in the table
+above.
+
+Two further gates read the maintainer's internal process records and run only
+in a maintainer checkout:
+
+```powershell
+python tools/audit_v0_1_traceability.py --no-execute
+python tools/validate_project_contract.py .
+```

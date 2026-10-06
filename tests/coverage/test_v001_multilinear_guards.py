@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from collections.abc import ItemsView, Iterator, Mapping
 from typing import Any, cast
 
@@ -16,6 +17,11 @@ from anyalgebra.algebra.multilinear import (
 )
 from anyalgebra.core.domains import Domain, DomainElement, QQ, ZZ
 from anyalgebra.core.modules import Basis, FreeModule
+
+# Before Python 3.12, isinstance() against a runtime-checkable protocol reads
+# every protocol property; from 3.12 on it inspects them without reading.  The
+# protocol check therefore consumes one parent lookup on older interpreters.
+_PROTOCOL_CHECK_LOOKUPS = 1 if sys.version_info < (3, 12) else 0
 
 
 def _module(rank: int = 1, *, domain: Domain[object] | None = None) -> FreeModule:
@@ -60,16 +66,30 @@ def test_coefficient_protocol_and_parent_lookup_failures_are_normalized(
     monkeypatch.undo()
 
     class BadParent:
+        def __init__(self, working_lookups: int) -> None:
+            self.remaining = working_lookups
+
         @property
         def parent(self) -> object:
-            raise RuntimeError("private")
+            if self.remaining <= 0:
+                raise RuntimeError("private")
+            self.remaining -= 1
+            return module.domain
 
         @property
         def value(self) -> object:
             return 1
 
     with pytest.raises(MultilinearDefinitionError, match="parent lookup failed"):
-        multilinear._require_domain_element(BadParent(), module.domain, entry_index=0)
+        multilinear._require_domain_element(
+            BadParent(_PROTOCOL_CHECK_LOOKUPS), module.domain, entry_index=0
+        )
+    # A parent that never answers is normalized on every interpreter; which of
+    # the two guards reports it depends on whether the protocol check reads it.
+    with pytest.raises(
+        MultilinearDefinitionError, match=r"protocol check failed|parent lookup failed"
+    ):
+        multilinear._require_domain_element(BadParent(0), module.domain, entry_index=0)
 
 
 class _Element:
@@ -192,7 +212,7 @@ def test_cell_element_normalizes_a_late_parent_failure() -> None:
         @property
         def parent(self) -> object:
             self.lookups += 1
-            if self.lookups > 1:
+            if self.lookups > 1 + _PROTOCOL_CHECK_LOOKUPS:
                 raise RuntimeError("private")
             return self._parent
 
