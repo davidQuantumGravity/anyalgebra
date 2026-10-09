@@ -20,6 +20,18 @@
 - Corrected the README command for the atlas example, which needs an output
   folder, and separated the status-page checks that run in any checkout from
   the two that read maintainer records.
+- Added the convenience layer `anyalgebra.easy` (v0.1.1): basis symbols by
+  unpacking, attribute, index, or injection; the operators `*`, `+`, `-`, `/`
+  and `**` on elements; four print forms (sum, vector, sparse, LaTeX) chosen
+  per call, block, handle, or session, with a registry for more; multiplication
+  tables and one-call reports. It wraps the kernel and changes nothing in it.
+  `Matrix` gained `subtract`, `negate`, `scale`, and the operators `+`, `-`
+  and `@`. The README first calculation uses the layer.
+- Added `anyalgebra.composition` (v0.1.2): the Cayley--Dickson doubling with
+  the division and split chains through the sedenions, sign involutions,
+  norms, inverses and division, tensor products with factor-wise
+  conjugations, and exact tests for commutativity, associativity,
+  alternativity, the composition law, involutions, and automorphisms.
 - Gave every legacy symbol that the v0.0 parity ledger defers a current owner.
   `docs/legacy/deferred-ownership.json` assigns the 304 deferred symbols to
   eleven work packages without release labels, and a test fails when a symbol

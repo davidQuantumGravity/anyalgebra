@@ -269,6 +269,87 @@ class Matrix:
             ),
         )
 
+    def negate(self) -> Matrix:
+        """Return the entrywise additive inverse in the same matrix space."""
+        rows = []
+        for row in self.entries:
+            cells = []
+            for entry in row:
+                failure = None
+                try:
+                    result = cast(Any, entry).negate()
+                except Exception as error:
+                    result = None
+                    failure = _name(error)
+                if failure is not None or not _owned(result, self.parent.entry_parent):
+                    raise MatrixDefinitionError(
+                        f"negation failed ({failure or 'foreign-result'})"
+                    )
+                cells.append(result)
+            rows.append(tuple(cells))
+        return Matrix._create(self.parent, tuple(rows))
+
+    def subtract(self, other: object) -> Matrix:
+        """Return the entrywise difference within the literal same space."""
+        if type(other) is not Matrix or other.parent is not self.parent:
+            raise MatrixDefinitionError(
+                "subtraction requires the literal same MatrixSpace"
+            )
+        return Matrix._create(
+            self.parent,
+            tuple(
+                tuple(
+                    _call(
+                        entry,
+                        "subtract",
+                        other.entries[i][j],
+                        self.parent.entry_parent,
+                        "subtraction",
+                    )
+                    for j, entry in enumerate(row)
+                )
+                for i, row in enumerate(self.entries)
+            ),
+        )
+
+    def scale(self, scalar: object) -> Matrix:
+        """Multiply every entry on the right by one entry-parent scalar.
+
+        A raw literal enters through the entry parent's own constructor.
+        """
+        parent = self.parent.entry_parent
+        if not _owned(scalar, parent):
+            failure = None
+            try:
+                scalar = cast(Any, parent).element(scalar)
+            except Exception as error:
+                failure = _name(error)
+            if failure is not None or not _owned(scalar, parent):
+                raise MatrixDefinitionError(
+                    f"scalar construction failed ({failure or 'foreign-result'})"
+                )
+        return Matrix._create(
+            self.parent,
+            tuple(
+                tuple(
+                    _call(entry, "multiply", scalar, parent, "scaling") for entry in row
+                )
+                for row in self.entries
+            ),
+        )
+
+    def __add__(self, other: object) -> Matrix:
+        return self.add(other)
+
+    def __sub__(self, other: object) -> Matrix:
+        return self.subtract(other)
+
+    def __neg__(self) -> Matrix:
+        return self.negate()
+
+    def __matmul__(self, other: object) -> Matrix:
+        return self.matmul(other)
+
     def matmul(self, other: object) -> Matrix:
         if type(other) is not Matrix:
             raise MatrixDefinitionError("matmul requires an exact Matrix")

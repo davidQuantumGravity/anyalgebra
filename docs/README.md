@@ -15,6 +15,8 @@ built on them. The documents have the following authority order:
 - [Using quaternions and octonions](guides/quaternions-and-octonions.md)
 - [Current implementation and distribution status](status.md)
 - [v0.1 API](api/api-v0.1.md)
+- [Convenience layer](api/easy.md)
+- [Composition algebras and involutions](api/composition.md)
 - [v0.0 specification](specifications/v0.0-spec.md)
 - [v0.0 API](api/api-v0.0.md)
 - [Architecture decisions](architecture/architecture-decisions/README.md)

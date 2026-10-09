@@ -22,30 +22,37 @@ python -m pip install -e .
 
 ## A first calculation
 
-The octonions are available as a named exact multiplication table. This
-computes one commutator and one associator in that table:
+The convenience layer, `anyalgebra.easy`, gives basis symbols, operators, and
+several print forms. Here are the quaternions and the octonions:
 
 ```python
-from anyalgebra.analysis.elementary import associator, commutator
-from anyalgebra.fixtures.composition import octonion_fixture
+import anyalgebra.easy as aa
 
-O = octonion_fixture()
-e = [O.module.element({i: 1}) for i in range(O.module.rank)]
+H, O = aa.quaternions(), aa.octonions()
+one, i, j, k = H.basis
+x = (1 + 2 * i) * (j + k) / 2
 
-print(O.module.basis.labels)
-print(commutator(O, e[1], e[2]).coordinates())
-print(associator(O, e[1], e[2], e[4]).coordinates())
+print(i * j, "|", (i * j) * k)
+print(x, "|", f"{x:v}")
+print(aa.comm(O.e1, O.e2), "|", aa.assoc(O.e1, O.e2, O.e4))
 ```
 
 ```text
-('1', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7')
-{3: _IntegerElement(parent=ZZ(), value=2)}
-{7: _IntegerElement(parent=ZZ(), value=2)}
+k | -1
+-1/2*j + 3/2*k | [0, 0, -1/2, 3/2]
+2*e3 | 2*e7
 ```
 
-So `[e1, e2] = 2*e3`, and `(e1*e2)*e4 - e1*(e2*e4) = 2*e7`: the table is
-neither commutative nor associative. Coordinates are exact integers keyed by
-basis index.
+So `[e1, e2] = 2*e3` and `(e1*e2)*e4 - e1*(e2*e4) = 2*e7`: the octonions are
+neither commutative nor associative. All arithmetic is exact. `f"{x:v}"` prints
+the same element as a coordinate vector, and `H.table()` and `H.report()` print
+the multiplication table and a summary of laws, center, and derivations. The
+[convenience-layer guide](docs/api/easy.md) lists everything, with a table from
+AlgMul names to the new calls.
+
+The layer wraps the strict kernel and changes nothing in it. The kernel makes
+every parent and product explicit, which is what the evidence records rely on;
+`x.raw` and `H.structure` give the kernel objects.
 
 The root package exports only `__version__`; import working APIs from their
 owning modules, as above. Every file in [`examples/`](examples) is a runnable
