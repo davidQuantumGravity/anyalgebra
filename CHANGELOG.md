@@ -32,6 +32,16 @@
   norms, inverses and division, tensor products with factor-wise
   conjugations, and exact tests for commutativity, associativity,
   alternativity, the composition law, involutions, and automorphisms.
+- Added five family modules (v0.1.3 to v0.1.7), each checked exactly against
+  textbook statements: `anyalgebra.matrices` (matrices over any algebra with
+  ordered products, conjugations and Hermitian bases), `anyalgebra.lie`
+  (classical Lie algebras, structure constants from matrices, Killing-form
+  inertia, root systems and Weyl dimensions for types A to G),
+  `anyalgebra.clifford` (Clifford and Grassmann algebras, the three
+  involutions, and exact gamma matrices for any signature),
+  `anyalgebra.jordan` (Hermitian Jordan algebras, the Freudenthal product
+  and cubic norm, tensor-Jordan carriers) and `anyalgebra.matrix_lie`
+  (`su(n, A)` and `sl(n, A)` over the composition algebras).
 - Gave every legacy symbol that the v0.0 parity ledger defers a current owner.
   `docs/legacy/deferred-ownership.json` assigns the 304 deferred symbols to
   eleven work packages without release labels, and a test fails when a symbol

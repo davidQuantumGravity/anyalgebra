@@ -109,12 +109,27 @@ prepared for publication and are not part of this repository yet.
 Experimental modules are research code. They are not a stable API and may
 change without notice.
 
+### Algebra families
+
+The v0.1.x patches add modules for the classical families, each checked
+exactly against a textbook statement:
+
+| Module | What it builds |
+|---|---|
+| [`anyalgebra.easy`](docs/api/easy.md) | symbols, operators, print forms, tables, reports |
+| [`anyalgebra.composition`](docs/api/composition.md) | Cayley-Dickson algebras, involutions, tensor products |
+| [`anyalgebra.matrices`](docs/api/families.md) | matrices over any algebra |
+| [`anyalgebra.lie`](docs/api/families.md) | classical Lie algebras, Killing forms, root systems |
+| [`anyalgebra.clifford`](docs/api/families.md) | Clifford and Grassmann algebras, gamma matrices |
+| [`anyalgebra.jordan`](docs/api/families.md) | Hermitian Jordan algebras and `A tensor J_n(B)` |
+| [`anyalgebra.matrix_lie`](docs/api/families.md) | `su(n, A)` and `sl(n, A)` over the composition algebras |
+
 ### Not implemented yet
 
-Stable constructors for Lie, Clifford, Jordan, `GL/SL/SO/SU(n, A)`, and
-`A tensor J_n(B)` are not implemented. Version 0.1 is intentionally general:
-it does not expose specialized public Lie, Clifford, Jordan, exceptional,
-geometric, or physics APIs.
+Group-level transformations, representations and branching rules, spinor
+basis changes, and Fierz identities are not implemented. There is no universal
+`GL(n, A)` for an arbitrary nonassociative `A`; the matrix Lie module covers
+the cases that have an accepted definition and rejects the others.
 
 ## Status
 

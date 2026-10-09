@@ -17,6 +17,7 @@ built on them. The documents have the following authority order:
 - [v0.1 API](api/api-v0.1.md)
 - [Convenience layer](api/easy.md)
 - [Composition algebras and involutions](api/composition.md)
+- [Algebra families: matrices, Lie, Clifford, Jordan](api/families.md)
 - [v0.0 specification](specifications/v0.0-spec.md)
 - [v0.0 API](api/api-v0.0.md)
 - [Architecture decisions](architecture/architecture-decisions/README.md)
