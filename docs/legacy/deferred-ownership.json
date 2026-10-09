@@ -1,0 +1,463 @@
+{
+  "schema": "anyalgebra.algmul-deferred-ownership/v1",
+  "purpose": "Current owner of every legacy symbol that the frozen v0.0 parity ledger defers. The release labels recorded in that ledger are historical. Each symbol here belongs to exactly one work package, and the maintainer roadmap schedules every work package.",
+  "dispositions": {
+    "path": "docs/legacy/generated/algmul-dispositions.json",
+    "sha256": "00EF78B57D58976DA5AC903E305B82A0BB2DE78F2FD21B7DE4E0382848DDFD5B"
+  },
+  "defaultWorkPackage": {
+    "jordan_matrices": "wp.jordan",
+    "conjugations_norms": "wp.composition-operations",
+    "clifford_geometric_grassmann": "wp.clifford",
+    "lie_group_experiments": "wp.lie-classical",
+    "incomplete_stubs_comments": "wp.legacy-stubs"
+  },
+  "workPackages": [
+    {
+      "id": "wp.composition-operations",
+      "title": "Composition-algebra operations",
+      "scope": "Named involutions, conjugations, norms, inverses and division for composition algebras and their tensor products, with derivation and automorphism checks.",
+      "symbols": [
+        {
+          "partition": "conjugations_norms",
+          "names": [
+            "CConj",
+            "CHConj",
+            "CHOConj",
+            "COConj",
+            "Conj",
+            "CxHxOConj",
+            "CxOConj",
+            "DoubleNorm2",
+            "Dvd",
+            "DvdL",
+            "DvdR",
+            "HConj",
+            "HOConj",
+            "HxOConj",
+            "InnerPolarization",
+            "InnerProd",
+            "Inv",
+            "LConjNorm2",
+            "LRConjNorm2",
+            "LRConjNorm2Comm",
+            "Mag",
+            "NTLRConjNorm2CommTable",
+            "NestMulDConj",
+            "Norm2",
+            "Normize",
+            "OConj",
+            "RConjNorm2",
+            "SymConj",
+            "SymDvd",
+            "TConj",
+            "TConj1",
+            "TConj2",
+            "TConjAll",
+            "TDoubleNorm2",
+            "TLConjNorm2",
+            "TLRConjNorm2",
+            "TLRConjNorm2Comm",
+            "TRConjNorm2",
+            "TSymConj",
+            "TSymConj1",
+            "TSymConj2",
+            "TSymConjAll",
+            "fooConj",
+            "fooConjs",
+            "fooDvd",
+            "fooNorm"
+          ]
+        },
+        {
+          "partition": "lie_group_experiments",
+          "names": [
+            "Automorphism",
+            "Automorphism1",
+            "Automorphism2",
+            "G2Der",
+            "IsAutomorphism"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.matrices-over-algebras",
+      "title": "Matrices over algebras",
+      "scope": "Entrywise and Hermitian conjugation of matrices over an algebra or a tensor product, Hermitian and anti-Hermitian predicates, and matrix inner products.",
+      "symbols": [
+        {
+          "partition": "conjugations_norms",
+          "names": [
+            "AntiHermCConj",
+            "AntiHermCHConj",
+            "AntiHermCHOConj",
+            "AntiHermCOConj",
+            "AntiHermHConj",
+            "AntiHermHOConj",
+            "AntiHermOConj",
+            "AntiHermitian",
+            "HermCConj",
+            "HermCHConj",
+            "HermCHOConj",
+            "HermCOConj",
+            "HermConj",
+            "HermHConj",
+            "HermHOConj",
+            "HermMul",
+            "HermOConj",
+            "HermTConj",
+            "HermTConj1",
+            "HermTConj2",
+            "HermTConjAll",
+            "IsAntiHermitian",
+            "IsHermitian",
+            "MCConj",
+            "MCHConj",
+            "MCHOConj",
+            "MCOConj",
+            "MConj",
+            "MHConj",
+            "MHOConj",
+            "MInnerProd",
+            "MOConj",
+            "MSymConj",
+            "MTConj",
+            "MTConj1",
+            "MTConj2",
+            "MTConjAll"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.jordan",
+      "title": "Hermitian Jordan matrices",
+      "scope": "Hermitian 2-by-2, 3-by-3 and 4-by-4 matrices over an algebra with the Jordan and Freudenthal products and their identity checks.",
+      "symbols": [
+        {
+          "partition": "jordan_matrices",
+          "names": [
+            "FreudenthalProd",
+            "J2",
+            "J2All",
+            "J3",
+            "J3NProof",
+            "J3Proof",
+            "J4",
+            "JAntiAssoc",
+            "JAssoc",
+            "JComm",
+            "JProd",
+            "JordanProd"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.tensor-jordan",
+      "title": "Tensor-Jordan carriers",
+      "scope": "Carriers A tensor J_n(B) for independently chosen factors, with factor-wise conjugations, products and identity checks.",
+      "symbols": [
+        {
+          "partition": "jordan_matrices",
+          "names": [
+            "IsTJ3N",
+            "IsTJ3Ns",
+            "TJ2",
+            "TJ2Conj1",
+            "TJ2Conj2",
+            "TJ2ConjAll",
+            "TJ3",
+            "TJ3Conj1",
+            "TJ3Conj2",
+            "TJ3ConjAll",
+            "TJ3NProof",
+            "TJ3Proof",
+            "TJ4",
+            "TJ4Conj1",
+            "TJ4Conj2",
+            "TJ4ConjAll",
+            "TJAntiAssoc",
+            "TJAssoc",
+            "TJComm",
+            "TJProd",
+            "TJordanProd"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.grassmann",
+      "title": "Exterior and Grassmann products",
+      "scope": "Exterior and Grassmann products with index reduction, including the nonassociative Grassmann experiment.",
+      "symbols": [
+        {
+          "partition": "clifford_geometric_grassmann",
+          "names": [
+            "GrMul",
+            "GrReduceIndices",
+            "GrReduceIndicesRule",
+            "NAGMul",
+            "NAGReduceIndices",
+            "NAGReduceIndicesRule"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.clifford",
+      "title": "Clifford and geometric algebras",
+      "scope": "Clifford and geometric-algebra products by signature, monomial bases, grades, even subalgebras, diagonals and primitive idempotents.",
+      "symbols": [
+        {
+          "partition": "clifford_geometric_grassmann",
+          "names": [
+            "Cl",
+            "ClElem",
+            "ClElemCoeffs",
+            "ClElemSparse",
+            "ClRepl",
+            "ClSparse",
+            "Cliff",
+            "CliffAll",
+            "CliffAllSparse",
+            "CliffBases",
+            "CliffConsts",
+            "CliffDiagonals",
+            "CliffDiagonalsSparse",
+            "CliffEvenSubsets",
+            "CliffEvenSubsetsElement",
+            "CliffPrimitiveIdempotents",
+            "CliffPrimitiveIdempotentsSparse",
+            "CliffRealDiagonals",
+            "CliffRealDiagonalsSparse",
+            "CliffRecursion",
+            "CliffSparse",
+            "CliffSubsets",
+            "CliffSubsetsElement",
+            "Cliffk",
+            "CliffkFlat",
+            "CliffkFlatSparse",
+            "GAMul",
+            "GAReduceIndices",
+            "GAReduceIndicesRule",
+            "SymbolToTimes",
+            "SymbolToTimesRule",
+            "TimesToSymbol",
+            "TimesToSymbolRule"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.gamma-spinors",
+      "title": "Gamma matrices and spinors",
+      "scope": "Pauli, Weyl, Dirac and Majorana matrix bases, recursive gamma matrices by signature, charge and chirality operators, spin generators, and vector-spinor conversions.",
+      "symbols": [
+        {
+          "partition": "clifford_geometric_grassmann",
+          "names": [
+            "AnyToWeyl",
+            "ChiralBasis",
+            "DiracMatrices",
+            "DiracToMajorana",
+            "DiracToWeyl",
+            "EpsLower",
+            "EpsUpper",
+            "FlatMetric",
+            "GammaCharge",
+            "GammaChiral",
+            "GammaKronecker",
+            "GammaKroneckerIDs",
+            "GammaMatrices",
+            "GammaMatrix",
+            "GammaMatrix0s1t",
+            "GammaMatrix0s2t",
+            "GammaMatrix0s7t",
+            "GammaMatrix1s0t",
+            "GammaMatrix1s1t",
+            "GammaMatrix2s0t",
+            "GammaMatrix4s3t",
+            "GammaMatrixAdd",
+            "GammaMatrixAddFlip",
+            "GammaMatrixAddLightcone",
+            "GammaMatrixAddOneSpace",
+            "GammaMatrixAddOneTime",
+            "GammaMatrixAddTwoSpace",
+            "GammaMatrixAddTwoTime",
+            "GammaMatrixCombine",
+            "GammaMatrixProducts",
+            "GammaMatrixTensor",
+            "GammaMatrixTensor2",
+            "GammaMatrixTensor3",
+            "GammaMatrixTensor4",
+            "GammaMatrixTest",
+            "GradedMatrices",
+            "II",
+            "MajoranaCharge",
+            "MajoranaToDirac",
+            "MajoranaToWeyl",
+            "PauliMatrices",
+            "SpinFund",
+            "SpinorVariablesToVec",
+            "VecToDiracCSpinor",
+            "VecToDiracCSpinorT",
+            "VecToDiracMatrices",
+            "VecToDiracMatrix",
+            "VecToDiracSpinor",
+            "VecToDiracSpinorT",
+            "VecToSpinorVariables",
+            "VecToWeylCSpinor",
+            "VecToWeylCSpinorT",
+            "VecToWeylMatrices",
+            "VecToWeylMatrix",
+            "VecToWeylSpinor",
+            "VecToWeylSpinorT",
+            "WeylBarMatrices",
+            "WeylMatrices",
+            "WeylToAny",
+            "WeylToDirac",
+            "WeylToMajorana",
+            "XX",
+            "YY",
+            "ZZ",
+            "iI",
+            "iX",
+            "iY",
+            "iZ"
+          ]
+        },
+        {
+          "partition": "incomplete_stubs_comments",
+          "names": [
+            "GenMomenta",
+            "GenMomentum"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.lie-classical",
+      "title": "Lie brackets and classical generator bases",
+      "scope": "Matrix Lie brackets, so and su generator bases, Chevalley bases, roots, and finite rotations and unitary transformations.",
+      "symbols": [
+        {
+          "partition": "lie_group_experiments",
+          "names": [
+            "KinSpaceDim",
+            "LieProd",
+            "MRootsFromChevalley",
+            "MakeSOnFund",
+            "MakeSPnFund",
+            "MakeSUnFund",
+            "QRot",
+            "Rot",
+            "SOnFund",
+            "SOnFundChevalley",
+            "SOnGenerator",
+            "SOnGenerators",
+            "SOnGens",
+            "SOnTransformation",
+            "SOnTransformations",
+            "SUnAdj",
+            "SUnFund",
+            "SUnFundChevalley",
+            "UnitaryTransformation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.matrix-lie-over-algebras",
+      "title": "Matrix Lie generators over an algebra",
+      "scope": "Generator families sl, su, so and sa of n-by-n matrices over an algebra A, with their left, right and nested actions.",
+      "symbols": [
+        {
+          "partition": "lie_group_experiments",
+          "names": [
+            "FindSOnMA",
+            "FindSUnA",
+            "FindSUnLA",
+            "FindSUnMA",
+            "SAnAGens",
+            "SL2AGens",
+            "SL2ATransform",
+            "SLnA",
+            "SOAGenActions",
+            "SOAGens",
+            "SPnA",
+            "SU1A",
+            "SU1AAction",
+            "SU1ASimpleAction",
+            "SU1ASimpleGens",
+            "SU1ASimpleSingleAction",
+            "SU1ASimpleSingleGen",
+            "SU1ASingleAction",
+            "SU1ASingleGen",
+            "SU2A",
+            "SU2A0",
+            "SU2A01",
+            "SU2A1",
+            "SU2A2",
+            "SU2AGenActions",
+            "SU2AGens",
+            "SU2in3A",
+            "SU2in3A0",
+            "SU2in3A01",
+            "SU2in3A1",
+            "SU2in3A2",
+            "SU3A",
+            "SUnAChevalley",
+            "SUnAGens",
+            "TLieProd",
+            "U1A",
+            "U1A0",
+            "U1A2",
+            "U1AAction",
+            "U1ASimpleAction",
+            "U1ASimpleGens",
+            "U1ASimpleSingleAction",
+            "U1ASimpleSingleGen",
+            "U1ASingleAction",
+            "U1ASingleGen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.two-factor-generators",
+      "title": "Generator families over a two-factor tensor product",
+      "scope": "Candidate su(2) and su(3) generator families over a tensor product of two algebras.",
+      "symbols": [
+        {
+          "partition": "lie_group_experiments",
+          "names": [
+            "SU2AB",
+            "SU2AB1",
+            "SU2AB12",
+            "SU2AB2",
+            "SU2in3AB",
+            "SU2in3AB1",
+            "SU2in3AB12",
+            "SU2in3AB2",
+            "SU3AB"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wp.legacy-stubs",
+      "title": "Unfinished legacy stubs",
+      "scope": "Unfinished conversion stubs and source comments that record known defects. Each is resolved as preserved intent, a replacement, or a drop.",
+      "symbols": [
+        {
+          "partition": "incomplete_stubs_comments",
+          "names": [
+            "SYMtoTLIST"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -300,3 +300,35 @@ The following are unresolved v0.2 work, not v0.1 deliverables:
 
 No v0.2 equivalence result, Clifford convention translation, or Lie convention
 translation is claimed here.
+
+## 12. Current owners of the deferred families
+
+The frozen v0.0 ledger defers five partitions and records a release label for
+each. Those labels are a historical record and are not rewritten. They also
+went stale: the release named for Jordan matrices and for conjugations and
+norms was later given another purpose, and the releases named for the Clifford
+and Lie partitions cover only part of each family.
+
+Ownership is therefore tracked per symbol in
+[deferred-ownership.json](deferred-ownership.json). Every one of the 304
+deferred symbols belongs to exactly one work package, the ledger carries no
+release label, and `tests/docs/test_algmul_deferred_ownership.py` fails when a
+deferred symbol has no owner or two. The maintainer roadmap schedules each work
+package.
+
+| Work package | Legacy symbols | Scope |
+|---|---:|---|
+| `wp.composition-operations` | 51 | involutions, conjugations, norms, inverses and division for composition algebras and their tensor products; derivation and automorphism checks |
+| `wp.matrices-over-algebras` | 37 | entrywise and Hermitian conjugation of matrices over an algebra, Hermitian and anti-Hermitian predicates, matrix inner products |
+| `wp.jordan` | 12 | Hermitian matrices with the Jordan and Freudenthal products |
+| `wp.tensor-jordan` | 21 | carriers `A tensor J_n(B)` with factor-wise conjugations and products |
+| `wp.grassmann` | 6 | exterior and Grassmann products |
+| `wp.clifford` | 33 | Clifford and geometric algebras by signature, grades, even subalgebras, idempotents |
+| `wp.gamma-spinors` | 70 | gamma-matrix bases, charge and chirality operators, spin generators, vector-spinor conversions |
+| `wp.lie-classical` | 19 | matrix Lie brackets, `so` and `su` generator bases, Chevalley bases and roots |
+| `wp.matrix-lie-over-algebras` | 45 | `sl`, `su`, `so` and `sa` generator families of matrices over an algebra |
+| `wp.two-factor-generators` | 9 | candidate generator families over a tensor product of two algebras |
+| `wp.legacy-stubs` | 1 | unfinished conversion stubs and the source comments that record known defects |
+
+A work package supersedes its symbols the way sections 1 and 10 describe: by a
+typed replacement with independent tests, never by copying legacy output.

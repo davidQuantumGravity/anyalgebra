@@ -38,10 +38,10 @@ _TEST_REGISTRY = _ROOT / ".agents/project-process/test-matrix.json"
 
 _PINNED_HASHES = {
     "algmul-dispositions.json": (
-        "887B2FF9CF20F4D40928CCE137019E5BD3D31C5C6BE81D7F40B79F7F21B815AD"
+        "00EF78B57D58976DA5AC903E305B82A0BB2DE78F2FD21B7DE4E0382848DDFD5B"
     ),
     "algmul-oracle-evidence.json": (
-        "4DE645E746FE9DB1D46E943286D50EE6533C46CEDBAFA6A3EC3A872246FCC11D"
+        "107B44F47D73F379532583D27F085DE6AC7CC7B36FC6D8E188E1E267D8756536"
     ),
 }
 _ACTIVE_PENDING = {
@@ -170,6 +170,8 @@ def test_frozen_parity_ledgers_are_hash_bound_and_traceable() -> None:
     assert len(assignments) == 3000
     assert len(evidence) == 10
 
+    if not _API_REGISTRY.is_file() or not _TEST_REGISTRY.is_file():
+        pytest.skip("internal process records are not distributed with this checkout")
     api_records = _records(json.loads(_API_REGISTRY.read_text(encoding="utf-8")))
     test_records = _records(json.loads(_TEST_REGISTRY.read_text(encoding="utf-8")))
     api_ids = {cast(str, item["id"]) for item in api_records}

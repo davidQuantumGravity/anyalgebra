@@ -20,6 +20,17 @@
 - Corrected the README command for the atlas example, which needs an output
   folder, and separated the status-page checks that run in any checkout from
   the two that read maintainer records.
+- Gave every legacy symbol that the v0.0 parity ledger defers a current owner.
+  `docs/legacy/deferred-ownership.json` assigns the 304 deferred symbols to
+  eleven work packages without release labels, and a test fails when a symbol
+  has no owner or two. The release labels in the frozen ledger had gone stale.
+- Repaired the legacy AlgMul lane, which CI does not run. One of its test files
+  is hash-bound as evidence and had lost a redundant cast, so 23 tests failed;
+  the evidence registry is bound to the current file again. In a fresh
+  checkout the lane failed for two more reasons, both fixed: the captured
+  runtime receipt was stored with converted line endings, which broke its
+  pinned hash, and tests that read maintainer records failed instead of
+  skipping.
 
 ### Experimental namespace review
 

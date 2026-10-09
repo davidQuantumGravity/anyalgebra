@@ -6,7 +6,7 @@
   },
   "oracleEvidenceRegistry": {
     "path": "docs/legacy/generated/algmul-oracle-evidence.json",
-    "sha256": "4DE645E746FE9DB1D46E943286D50EE6533C46CEDBAFA6A3EC3A872246FCC11D"
+    "sha256": "107B44F47D73F379532583D27F085DE6AC7CC7B36FC6D8E188E1E267D8756536"
   },
   "selection": "One explicit assignment exists for every durable layer-target pair. Assignments bind layer, targetId, kind, partition, and rule; rules carry canonical owner, API/test links, and oracle status. Available oracle IDs resolve through the bound external evidence registry.",
   "rules": [

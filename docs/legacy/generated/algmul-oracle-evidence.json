@@ -71,7 +71,7 @@
     {
       "id": "oracle.property.legacy-parenthesization",
       "path": "tests/legacy/test_generated_property_family.py",
-      "sha256": "F6921750D4F99E9F948D3E628B88216A7E7504B122FB5A10B6E94D94723314ED",
+      "sha256": "854D3B0131FEBE3C22C705F5396EAE8207E741DDBD08B1FF4A4145A627C0872F",
       "binding": {
         "pytestNodes": [
           "tests/legacy/test_generated_property_family.py::test_literal_legacy_power_jordan_and_jacobi_parenthesizations_are_typed"
@@ -83,7 +83,7 @@
     {
       "id": "oracle.property.wrapper-evaluation",
       "path": "tests/legacy/test_generated_property_family.py",
-      "sha256": "F6921750D4F99E9F948D3E628B88216A7E7504B122FB5A10B6E94D94723314ED",
+      "sha256": "854D3B0131FEBE3C22C705F5396EAE8207E741DDBD08B1FF4A4145A627C0872F",
       "binding": {
         "pytestNodes": [
           "tests/legacy/test_generated_property_family.py::test_typed_laws_validate_against_a_hand_checkable_finite_model",
@@ -97,7 +97,7 @@
     {
       "id": "oracle.property.generated-api",
       "path": "tests/legacy/test_generated_property_family.py",
-      "sha256": "F6921750D4F99E9F948D3E628B88216A7E7504B122FB5A10B6E94D94723314ED",
+      "sha256": "854D3B0131FEBE3C22C705F5396EAE8207E741DDBD08B1FF4A4145A627C0872F",
       "binding": {
         "pytestNodes": [
           "tests/legacy/test_generated_property_family.py::test_makeproperty_fixture_enumerates_the_complete_intended_surface",
