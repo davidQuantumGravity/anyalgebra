@@ -105,6 +105,43 @@ def wolfram(x):
 `x.vector` returns the coordinates as a tuple of `Fraction`, and
 `x.coefficients` the nonzero ones keyed by label.
 
+## More forms
+
+| Form | Short | The same `x` |
+|---|---|---|
+| `pretty` | `p` | subscripts, vulgar fractions and a true minus sign |
+| `wolfram` | `w` | `-1/2 j + 3/2 k`, which can be pasted into Mathematica |
+
+## Any finite structure
+
+`aa.magma(elements, function)` builds a finite set with a binary operation.
+The function may return `None` where the operation is undefined.
+
+```python
+game = aa.magma(
+    ("rock", "paper", "scissors"),
+    lambda a, b: a if a == b or (a, b) in {("paper", "rock"), ("scissors", "paper"), ("rock", "scissors")} else b,
+    name="RPS",
+)
+print(game.check("associative"))
+```
+
+`game.check(law)` returns a result that is truthy when the law holds and
+prints as a sentence, with the first counterexample when it fails. The laws
+are `commutative`, `associative` and `idempotent`. `game.table()` prints the
+operation table, `game.identity()` finds a two-sided identity, and
+`game.report()` gathers all of it.
+
+## The catalog
+
+`aa.catalog()` returns every built-in structure and constructor across the
+modules, one per line.
+
+## Kernel values
+
+`str()` of a kernel element or scalar is now readable, for example `2*e7`
+and `3/2`. `repr()` is unchanged and remains the stable record.
+
 ## Tables and reports
 
 `H.table()` returns the multiplication table as aligned text, and

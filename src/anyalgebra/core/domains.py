@@ -98,6 +98,10 @@ class _IntegerElement:
     parent: IntegerDomain
     value: int
 
+    def __str__(self) -> str:
+        """Render the integer itself; ``repr`` keeps the full record."""
+        return str(self.value)
+
 
 _ZZ = object.__new__(IntegerDomain)
 
@@ -174,6 +178,12 @@ class _RationalElement:
 
     parent: RationalDomain
     value: Rational
+
+    def __str__(self) -> str:
+        """Render the value as ``3`` or ``3/2``; ``repr`` keeps the full record."""
+        if self.value.denominator == 1:
+            return str(self.value.numerator)
+        return f"{self.value.numerator}/{self.value.denominator}"
 
     def _require_compatible(self, other: object) -> _RationalElement:
         """Reject every arithmetic input except an element of this exact parent."""

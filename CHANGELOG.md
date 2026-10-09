@@ -32,6 +32,14 @@
   norms, inverses and division, tensor products with factor-wise
   conjugations, and exact tests for commutativity, associativity,
   alternativity, the composition law, involutions, and automorphisms.
+- Reworked the interface and the README (v0.1.8, first part). The README is
+  now a short course: what an algebraic structure is, a built-in algebra, an
+  algebra from a table, a structure from any set and function, and the
+  default set, with a wordmark, badges and a figure generated from the
+  package's own octonion table. Every README code block runs in the tests
+  and its output is compared with the text shown. Added `aa.magma` with
+  sentence-style law checks, `aa.catalog()`, the `pretty` and `wolfram`
+  print forms, and a readable `str()` for kernel elements and scalars.
 - Added five family modules (v0.1.3 to v0.1.7), each checked exactly against
   textbook statements: `anyalgebra.matrices` (matrices over any algebra with
   ordered products, conjugations and Hermitian bases), `anyalgebra.lie`

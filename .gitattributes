@@ -9,6 +9,7 @@
 *.tex text eol=lf
 *.wl text eol=lf
 *.wls text eol=lf
+*.svg text eol=lf
 
 # A captured receipt is hash-bound byte for byte and is never converted.
 docs/legacy/generated/algmul-evaluated-surface.json -text

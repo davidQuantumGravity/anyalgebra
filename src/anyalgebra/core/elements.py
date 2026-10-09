@@ -171,6 +171,15 @@ class SparseElement:
         indices = tuple(index for index, _ in self._coordinate_pairs)
         return f"SparseElement(rank={self.parent.rank}, support={indices!r})"
 
+    def __str__(self) -> str:
+        """Render the element as a readable sum over the basis labels."""
+        labels = self.parent.basis.labels
+        terms = [
+            f"{coefficient}*{labels[index]}"
+            for index, coefficient in self._coordinate_pairs
+        ]
+        return " + ".join(terms) if terms else "0"
+
     def add(self, other: SparseElement) -> SparseElement:
         """Return the exact sum with an element of this literal module parent."""
         right = self._require_same_parent(other, operation="add")

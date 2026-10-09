@@ -656,3 +656,256 @@ def anticomm(x: Element, y: Element) -> Element:
 def assoc(x: Element, y: Element, z: Element) -> Element:
     """Return the associator ``(x*y)*z - x*(y*z)``."""
     return (x * y) * z - x * (y * z)
+
+
+# --- a pretty form -----------------------------------------------------------
+
+_SUBSCRIPTS = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+_FRACTIONS = {
+    Fraction(1, 2): "½",
+    Fraction(1, 3): "⅓",
+    Fraction(2, 3): "⅔",
+    Fraction(1, 4): "¼",
+    Fraction(3, 4): "¾",
+}
+
+
+@register_form("pretty", "p")
+def _as_pretty(x: Element) -> str:
+    """Render with subscripts, vulgar fractions and a true minus sign."""
+    parts: list[tuple[bool, str]] = []
+    for label, value in zip(x.algebra.labels, x.vector, strict=True):
+        if value == 0:
+            continue
+        size = abs(value)
+        number = _FRACTIONS.get(size, _number(size))
+        head = label.rstrip("0123456789")
+        shown = head + label[len(head) :].translate(_SUBSCRIPTS) if head else label
+        if label == _UNIT_LABEL:
+            body = number
+        elif size == 1:
+            body = shown
+        else:
+            body = f"{number} {shown}"
+        parts.append((value < 0, body))
+    if not parts:
+        return "0"
+    text = ("−" if parts[0][0] else "") + parts[0][1]  # noqa: RUF001
+    return (
+        text
+        + "".join(
+            (" − " if negative else " + ") + body  # noqa: RUF001
+            for negative, body in parts[1:]
+        )
+    )
+
+
+@register_form("wolfram", "w")
+def _as_wolfram(x: Element) -> str:
+    """Render as a Wolfram Language sum that can be pasted into Mathematica."""
+    terms = [
+        _number(value) if label == _UNIT_LABEL else f"{_number(value)} {label}"
+        for label, value in zip(x.algebra.labels, x.vector, strict=True)
+        if value != 0
+    ]
+    return " + ".join(terms) if terms else "0"
+
+
+# --- arbitrary finite structures ---------------------------------------------
+
+
+class LawResult:
+    """The outcome of an exact law check, readable as a sentence."""
+
+    __slots__ = ("holds", "law", "text", "witness")
+
+    def __init__(
+        self, law: str, holds: bool, text: str, witness: tuple[object, ...] | None
+    ) -> None:
+        self.law, self.holds, self.text, self.witness = law, holds, text, witness
+
+    def __bool__(self) -> bool:
+        return self.holds
+
+    def __str__(self) -> str:
+        return self.text
+
+    def __repr__(self) -> str:
+        return f"LawResult({self.law!r}, holds={self.holds})"
+
+
+class Magma:
+    """A finite set with one binary operation, total or partial.
+
+    The operation is a function of two elements.  Returning ``None`` means
+    that the product is undefined, which makes the operation partial.
+    """
+
+    def __init__(
+        self,
+        elements: Sequence[object],
+        operation: Callable[[object, object], object],
+        *,
+        name: str = "M",
+        symbol: str = "*",
+    ) -> None:
+        self.elements: Final[tuple[object, ...]] = tuple(elements)
+        if not self.elements or len(set(self.elements)) != len(self.elements):
+            raise EasyError("table", "the elements must be distinct and at least one")
+        self.name, self.symbol = name, symbol
+        self._table: dict[tuple[object, object], object] = {}
+        for a in self.elements:
+            for b in self.elements:
+                value = operation(a, b)
+                if value is not None and value not in self.elements:
+                    raise EasyError(
+                        "table",
+                        f"{a}{symbol}{b} = {value!r} is not one of the elements",
+                    )
+                self._table[(a, b)] = value
+
+    def __call__(self, a: object, b: object) -> object:
+        """Return the product, or ``None`` where it is undefined."""
+        try:
+            return self._table[(a, b)]
+        except KeyError:
+            raise EasyError("symbol", f"{a!r} or {b!r} is not an element") from None
+
+    @property
+    def is_total(self) -> bool:
+        """Say whether every product is defined."""
+        return all(value is not None for value in self._table.values())
+
+    def _show(self, value: object) -> str:
+        return "undefined" if value is None else str(value)
+
+    def _nested(self, a: object, b: object, c: object, *, left: bool) -> object:
+        inner = self(a, b) if left else self(b, c)
+        if inner is None:
+            return None
+        return self(inner, c) if left else self(a, inner)
+
+    def check(self, law: str) -> LawResult:
+        """Check a law on every tuple and report the first counterexample.
+
+        Known laws: ``commutative``, ``associative``, ``idempotent``.
+        """
+        s = self.symbol
+        if law == "commutative":
+            for a in self.elements:
+                for b in self.elements:
+                    if self(a, b) != self(b, a):
+                        text = (
+                            f"not commutative: {a}{s}{b} = {self._show(self(a, b))}, "
+                            f"but {b}{s}{a} = {self._show(self(b, a))}"
+                        )
+                        return LawResult(law, False, text, (a, b))
+            return LawResult(
+                law, True, f"commutative: all {len(self._table)} pairs agree", None
+            )
+        if law == "associative":
+            for a in self.elements:
+                for b in self.elements:
+                    for c in self.elements:
+                        left = self._nested(a, b, c, left=True)
+                        right = self._nested(a, b, c, left=False)
+                        if left != right:
+                            text = (
+                                f"not associative: ({a}{s}{b}){s}{c} = "
+                                f"{self._show(left)}, "
+                                f"but {a}{s}({b}{s}{c}) = {self._show(right)}"
+                            )
+                            return LawResult(law, False, text, (a, b, c))
+            count = len(self.elements) ** 3
+            return LawResult(law, True, f"associative: all {count} triples agree", None)
+        if law == "idempotent":
+            for a in self.elements:
+                if self(a, a) != a:
+                    text = f"not idempotent: {a}{s}{a} = {self._show(self(a, a))}"
+                    return LawResult(law, False, text, (a,))
+            return LawResult(law, True, "idempotent: x*x = x for every element", None)
+        raise EasyError("law", f"unknown law {law!r}")
+
+    def identity(self) -> object:
+        """Return the two-sided identity element, or ``None`` if there is none."""
+        for e in self.elements:
+            if all(self(e, a) == a and self(a, e) == a for a in self.elements):
+                return e
+        return None
+
+    def table(self) -> str:
+        """Return the operation table as aligned text; a dot marks an undefined cell."""
+        names = [str(element) for element in self.elements]
+        cells = [
+            ["." if self(a, b) is None else str(self(a, b)) for b in self.elements]
+            for a in self.elements
+        ]
+        width = max(len(text) for text in names + [c for row in cells for c in row]) + 2
+        side = max(len(text) for text in names) + 2
+        lines = [self.symbol.ljust(side) + "".join(text.rjust(width) for text in names)]
+        for text, row in zip(names, cells, strict=True):
+            lines.append(text.ljust(side) + "".join(cell.rjust(width) for cell in row))
+        return "\n".join(lines)
+
+    def report(self) -> str:
+        """Return a short summary: size, totality, identity and the three laws."""
+        found = self.identity()
+        rows = [
+            f"{self.name}: {len(self.elements)} elements, "
+            + ("total" if self.is_total else "partial")
+            + f" operation {self.symbol}",
+            "  identity: " + ("none" if found is None else str(found)),
+        ]
+        rows += [
+            f"  {self.check(law)}"
+            for law in ("commutative", "associative", "idempotent")
+        ]
+        return "\n".join(rows)
+
+    def __repr__(self) -> str:
+        return f"Magma({self.name!r}, {len(self.elements)} elements)"
+
+
+def magma(
+    elements: Sequence[object],
+    operation: Callable[[object, object], object],
+    *,
+    name: str = "M",
+    symbol: str = "*",
+) -> Magma:
+    """Build a finite set with a binary operation given as a function."""
+    return Magma(elements, operation, name=name, symbol=symbol)
+
+
+# --- the catalog -------------------------------------------------------------
+
+_CATALOG: Final = (
+    ("aa.quaternions(), aa.octonions()", "H and O in the pinned AlgMul conventions"),
+    ("aa.split_quaternions(), aa.split_octonions()", "their split forms"),
+    ("aa.algebra(labels, table)", "any algebra from a table of basis products"),
+    ("aa.magma(elements, function)", "any finite set with a binary operation"),
+    ("ca.reals(), ca.complexes(), ca.quaternions()", "the Cayley-Dickson chain"),
+    ("ca.octonions(), ca.sedenions()", "... through dimension 16"),
+    ("ca.split_complexes(), ca.split_octonions()", "split forms by doubling"),
+    ("ca.cayley_dickson(A), ca.tensor(A, B)", "doubling and tensor products"),
+    ("am.matrix(A, rows)", "matrices over any algebra"),
+    ("al.so(p, q), al.su(p, q), al.sl(n), al.sp(n)", "classical Lie algebras"),
+    ("al.root_system(family, rank)", "root systems of types A to G"),
+    ("ac.clifford(p, q, r), ac.grassmann(n)", "Clifford and exterior algebras"),
+    ("ac.gamma_matrices(p, q)", "exact gamma matrices in any signature"),
+    ("aj.hermitian(A, n)", "Hermitian Jordan algebras; J3(O) is the Albert algebra"),
+    ("aj.tensor_jordan(A, n, B)", "the carrier A tensor J_n(B)"),
+    ("ml.su(n, A), ml.sl(n, A)", "matrix Lie algebras over R, C, H, O"),
+)
+
+
+def catalog() -> str:
+    """Return the built-in structures and constructors as an aligned list.
+
+    The prefixes are the conventional imports: ``aa`` for this module,
+    ``ca`` for ``anyalgebra.composition``, ``am`` for ``anyalgebra.matrices``,
+    ``al`` for ``anyalgebra.lie``, ``ac`` for ``anyalgebra.clifford``,
+    ``aj`` for ``anyalgebra.jordan`` and ``ml`` for ``anyalgebra.matrix_lie``.
+    """
+    width = max(len(call) for call, _ in _CATALOG)
+    return "\n".join(f"{call.ljust(width)}  {text}" for call, text in _CATALOG)
