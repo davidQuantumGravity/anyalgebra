@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 552" width="600" height="552" role="img" aria-label="Two notebook cells and their rendered output">
+<rect width="600" height="552" rx="16" fill="#f8fafc"/>
+<rect x="92" y="18" width="490" height="98" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="84" y="42" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-anchor="end" fill="#2563eb">In [1]:</text>
+<text x="104" y="42" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#1f2937" xml:space="preserve">import anyalgebra.easy as aa</text>
+<text x="104" y="63" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#1f2937" xml:space="preserve">H = aa.quaternions()</text>
+<text x="104" y="84" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#1f2937" xml:space="preserve">x = (1 + 2 * H.i) * (H.j + H.k) / 2</text>
+<text x="104" y="105" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#1f2937" xml:space="preserve">x</text>
+<text x="84" y="148" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-anchor="end" fill="#dc2626">Out[1]:</text>
+<text x="104" y="150" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="21" font-style="italic" fill="#1f2937">−½ j + 3/2 k</text>
+<rect x="92" y="172" width="490" height="34" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="84" y="194" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-anchor="end" fill="#2563eb">In [2]:</text>
+<text x="104" y="194" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" fill="#1f2937">H</text>
+<text x="84" y="260" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" text-anchor="end" fill="#dc2626">Out[2]:</text>
+<text x="191" y="260" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">1</text>
+<text x="133" y="318" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">1</text>
+<text x="249" y="260" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">i</text>
+<text x="133" y="376" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">i</text>
+<text x="307" y="260" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">j</text>
+<text x="133" y="434" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">j</text>
+<text x="365" y="260" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">k</text>
+<text x="133" y="492" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700" font-style="italic" text-anchor="middle" fill="#1f2937">k</text>
+<line x1="104" y1="272" x2="394" y2="272" stroke="#1f2937" stroke-width="1.5"/>
+<text x="191" y="318" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">1</text>
+<text x="249" y="318" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">i</text>
+<text x="307" y="318" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">j</text>
+<text x="365" y="318" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">k</text>
+<rect x="104" y="340" width="290" height="58" fill="#cbd5e1" fill-opacity="0.35"/>
+<text x="191" y="376" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">i</text>
+<text x="249" y="376" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">−1</text>
+<text x="307" y="376" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">k</text>
+<text x="365" y="376" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">−j</text>
+<text x="191" y="434" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">j</text>
+<text x="249" y="434" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">−k</text>
+<text x="307" y="434" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">−1</text>
+<text x="365" y="434" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">i</text>
+<rect x="104" y="456" width="290" height="58" fill="#cbd5e1" fill-opacity="0.35"/>
+<text x="191" y="492" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">k</text>
+<text x="249" y="492" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">j</text>
+<text x="307" y="492" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">−i</text>
+<text x="365" y="492" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-style="italic" text-anchor="middle" fill="#1f2937">−1</text>
+</svg>

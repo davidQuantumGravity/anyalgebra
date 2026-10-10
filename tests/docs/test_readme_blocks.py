@@ -25,7 +25,7 @@ def test_readme_code_blocks_print_the_shown_output() -> None:
             assert printed.strip() == body.strip()
             printed = None
             compared += 1
-    assert compared == 6
+    assert compared == 10
 
 
 def test_readme_shows_no_kernel_repr_and_links_existing_files() -> None:
@@ -37,3 +37,25 @@ def test_readme_shows_no_kernel_repr_and_links_existing_files() -> None:
         assert (README.parent / target).exists(), target
     for image in re.findall(r'src="(docs/assets/[^"]+)"', text):
         assert (README.parent / image).is_file(), image
+
+
+def test_api_guide_code_blocks_run() -> None:
+    import anyalgebra.easy as aa
+
+    forms = dict(aa._FORMS)
+    try:
+        for name in ("easy", "composition", "families"):
+            guide = README.parent / "docs" / "api" / f"{name}.md"
+            namespace: dict[str, object] = {"__name__": name}
+            blocks = [
+                body
+                for language, body in BLOCK.findall(guide.read_text(encoding="utf-8"))
+                if language == "python"
+            ]
+            assert blocks, name
+            for body in blocks:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    exec(compile(body, guide.name, "exec"), namespace)
+    finally:
+        aa._FORMS.clear()
+        aa._FORMS.update(forms)

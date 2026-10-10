@@ -122,6 +122,23 @@ class ValidationReport:
             f"has_witness={self.witness is not None})"
         )
 
+    def __str__(self) -> str:
+        """Say the outcome in words, with locations only and no member payloads."""
+        name = self.law.name
+        if self.witness is not None and type(self).__name__ == "Disproved":
+            return (
+                f"Disproved: {name} fails at assignment indices "
+                f"{self.witness.substitution_indices}, found after "
+                f"{self.evaluated_assignments} of {self.expected_assignments} "
+                "assignments"
+            )
+        if self.undecidable_assignments:
+            return (
+                f"Inconclusive: {name} has {self.undecidable_assignments} undecidable "
+                f"assignments among {self.expected_assignments}"
+            )
+        return f"Proved: {name} holds on all {self.expected_assignments} assignments"
+
 
 @dataclass(frozen=True, slots=True, init=False, eq=False, repr=False)
 class Proved(ValidationReport):

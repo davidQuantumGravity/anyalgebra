@@ -32,6 +32,16 @@
   norms, inverses and division, tensor products with factor-wise
   conjugations, and exact tests for commutativity, associativity,
   alternativity, the composition law, involutions, and automorphisms.
+- Completed the interface work (v0.1.8, second part). `aa.structure` builds
+  finite structures with several sets and operations of any arity, with
+  laws written as functions. `A.generic()` gives an element symbolic
+  coordinates, and `A.identity(name, law)` decides an identity for every
+  element at once, using the new exact `anyalgebra.polynomials`. Added
+  `aa.compare` for fingerprints side by side, ruled tables, an HTML form
+  and notebook display, `aa.explain` and a readable `str()` for kernel law
+  validation reports, and two more generated figures: the Fano plane and a
+  notebook cell. The code blocks of the three API guides now run in the
+  tests.
 - Reworked the interface and the README (v0.1.8, first part). The README is
   now a short course: what an algebraic structure is, a built-in algebra, an
   algebra from a table, a structure from any set and function, and the

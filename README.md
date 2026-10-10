@@ -48,6 +48,14 @@ octonions, drawn from the package's own data:
   <img src="docs/assets/octonion-table.svg" alt="The 8-by-8 multiplication table of the octonions, colored by the basis element each product gives" width="520">
 </p>
 
+Seven lines carry the same information. Each line below holds three units
+whose products stay on the line, and the arrows give the sign. This is the
+Fano plane, and it too is drawn from the table rather than by hand:
+
+<p align="center">
+  <img src="docs/assets/fano-plane.svg" alt="The Fano plane: seven points labeled e1 to e7 on seven lines, with arrows giving the sign of each product" width="400">
+</p>
+
 AnyAlgebra works with all of these. You can take a structure from the default
 set, build an algebra from a table, or build a structure from any set and any
 operation.
@@ -143,9 +151,36 @@ RPS: 3 elements, total operation *
 ```
 
 Every line is a proof over all cases or a counterexample you can check by
-hand. The kernel underneath goes further: structures with several sets,
-operations of any arity, and deductive systems, described in the
-[capabilities guide](docs/capabilities.md).
+hand.
+
+A structure may have several sets, and operations with any number of
+arguments. Here three turns act on the corners of a triangle, and a
+reflection swaps two corners. A law is a function that returns the two sides
+of an equation:
+
+```python
+corners = "abc"
+triangle = aa.structure(
+    {"turn": (0, 1, 2), "corner": tuple(corners)},
+    {
+        "add": ("turn turn -> turn", lambda m, n: (m + n) % 3),
+        "move": ("turn corner -> corner", lambda n, p: corners[(corners.index(p) + n) % 3]),
+        "flip": ("corner -> corner", {("a",): "a", ("b",): "c", ("c",): "b"}),
+    },
+    name="triangle",
+)
+move, add, flip = triangle.move, triangle.add, triangle.flip
+print(triangle.check("action", lambda m, n, p: (move(m, move(n, p)), move(add(m, n), p)), "turn turn corner"))
+print(triangle.check("flip commutes", lambda n, p: (flip(move(n, p)), move(n, flip(p))), "turn corner"))
+```
+
+```text
+action: holds for all 27 assignments
+flip commutes fails at n = 1, p = a: left side = c, right side = b
+```
+
+The kernel underneath adds typed terms, proof records and deductive systems,
+described in the [capabilities guide](docs/capabilities.md).
 
 ## 4. Ask questions
 
@@ -175,6 +210,42 @@ In words: the octonions are alternative and the sedenions are not; the
 and the 2-by-2 octonionic matrices generate a 45-dimensional Lie algebra with
 the same Killing-form signature as `so(9,1)`.
 
+A check on basis elements is not a proof for every element. For that, give
+an element symbols for coordinates. One calculation with polynomials then
+settles an identity for all elements at once:
+
+```python
+print(aa.quaternions().generic("a").norm())
+print(O.identity("alternative", lambda x, y: aa.assoc(x, x, y)))
+print(O.identity("norm is multiplicative", lambda x, y: ((x * y).norm(), x.norm() * y.norm())))
+print(O.identity("associative", lambda x, y, z: aa.assoc(x, y, z)))
+```
+
+```text
+a0^2 + a1^2 + a2^2 + a3^2
+alternative: an identity in 16 symbols, so it holds for every element
+norm is multiplicative: an identity in 16 symbols, so it holds for every element
+associative fails at x = e1, y = e2, z = e4: the difference is 2*e7
+```
+
+The second line is the eight-square identity, proved in a few milliseconds.
+Two or more algebras can be set side by side:
+
+```python
+print(aa.compare(aa.quaternions(), O, aa.split_octonions()))
+```
+
+```text
+                      H        O        Os
+dimension             4        8        8
+commutative           False    False    False
+associative           True     False    False
+unit                  present  present  present
+center dimension      1        1        1
+nucleus dimension     4        1        1
+derivation dimension  3        14       14
+```
+
 ## The default set
 
 ```python
@@ -186,6 +257,9 @@ aa.quaternions(), aa.octonions()              H and O in the pinned AlgMul conve
 aa.split_quaternions(), aa.split_octonions()  their split forms
 aa.algebra(labels, table)                     any algebra from a table of basis products
 aa.magma(elements, function)                  any finite set with a binary operation
+aa.structure(sorts, operations)               several sets, operations of any arity
+A.generic(), A.identity(name, law)            symbolic elements; identities for all x
+aa.compare(A, B)                              exact fingerprints side by side
 ca.reals(), ca.complexes(), ca.quaternions()  the Cayley-Dickson chain
 ca.octonions(), ca.sedenions()                ... through dimension 16
 ca.split_complexes(), ca.split_octonions()    split forms by doubling
@@ -228,8 +302,29 @@ print(f"{x:w}")
 ```
 
 These are the sum, vector, pretty, LaTeX and Wolfram Language forms. The last
-can be pasted into Mathematica, and notebooks render the LaTeX form on their
-own. A new form is one small function.
+can be pasted into Mathematica. There is an HTML form as well, and a new form
+is one small function. Tables can be ruled:
+
+```python
+print(aa.quaternions().table(rules=True))
+```
+
+```text
+   │   1   i   j   k
+───┼─────────────────
+ 1 │   1   i   j   k
+ i │   i  -1   k  -j
+ j │   j  -k  -1   i
+ k │   k   j  -i  -1
+```
+
+In a notebook nothing needs to be asked for: an element displays as
+mathematics and an algebra as its table. The drawing below is generated from
+the values the package returns for these two cells.
+
+<p align="center">
+  <img src="docs/assets/notebook-cell.svg" alt="Two notebook cells: a quaternion product displayed as a formula, and the quaternion algebra displayed as its multiplication table" width="540">
+</p>
 
 ## What this adds to a computer-algebra notebook
 
@@ -238,8 +333,10 @@ own. A new form is one small function.
 - **No rounding.** Every coefficient is an integer or a fraction.
 - **Order is explicit.** Nonassociative products are never silently
   re-bracketed, and elements of two different structures never mix.
-- **Any structure.** Tables, functions, partial operations and several sets,
-  not only the named algebras.
+- **Every element at once.** With symbolic coordinates an identity is proved
+  for all elements, not sampled on a few.
+- **Any structure.** Tables, functions, partial operations, several sets and
+  operations of any arity, not only the named algebras.
 - **Replayable evidence.** A calculation can be recorded with its inputs and
   conventions and replayed later; see the
   [evidence model](docs/evidence/evidence-model.md).
@@ -261,8 +358,9 @@ Experimental modules may change without notice.
 ### Not implemented yet
 
 Group-level transformations, representations and branching rules, spinor
-basis changes, Fierz identities, and symbolic coefficients are not
-implemented. There is no universal `GL(n, A)` for an arbitrary nonassociative
+basis changes, and Fierz identities are not implemented. Symbolic
+coefficients are polynomials only: there is no factoring or simplification
+of radicals. There is no universal `GL(n, A)` for an arbitrary nonassociative
 `A`; the matrix Lie module covers the cases that have an accepted definition
 and rejects the others.
 
