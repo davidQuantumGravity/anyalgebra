@@ -6,6 +6,7 @@ import argparse
 from collections.abc import Callable, Mapping, Sequence
 import hashlib
 import json
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -238,8 +239,9 @@ def _document_checks(root: Path, state: str, findings: list[str]) -> None:
         if relative.suffix == ".md"
     }
     source = _read(root, Path("src/anyalgebra/_version.py"), findings)
-    if '__version__ = "0.1.0"' not in source:
-        findings.append("package source version is not 0.1.0")
+    # The milestone was 0.1.0; later patch releases keep the 0.1 series.
+    if re.search(r'__version__ = "0\.1\.\d+"', source) is None:
+        findings.append("package source version is not in the 0.1 series")
     status = texts[Path("docs/status.md")].lower()
     if "no git tag; not tagged" not in status:
         findings.append("status document does not deny a Git tag")

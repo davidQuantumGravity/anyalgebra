@@ -366,13 +366,13 @@ and rejects the others.
 
 ## Status
 
-The source reports version `0.1.0`. All 60 planned v0.1 tasks are implemented
-and the final task, `V01-060`, passed its readiness gate. The convenience
-layer and the family modules were added afterwards as the v0.1.x patches;
-they are tested against textbook statements, and their interfaces may still
-change. The package version stays `0.1.0` until the next tagged release.
+The source reports version `0.1.8`, tagged `v0.1.8`. The 0.1.0 milestone
+closed all 60 planned v0.1 tasks, and its final task, `V01-060`, passed its
+readiness gate. The convenience layer and the family modules were added
+afterwards as the v0.1.x patches; they are tested against textbook
+statements, and their interfaces may still change.
 
-No Git tag, signed archive, or package-index publication exists yet. The
+No signed archive or package-index publication exists yet. The
 [current status](docs/status.md) page records the exact test, coverage, and
 artifact evidence and its boundaries.
 

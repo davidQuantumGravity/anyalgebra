@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+Nothing yet.
+
+## 0.1.8 - 2026-10-10
+
 - Licensed the repository under `AGPL-3.0-only` and documented the option to
   request separately negotiated proprietary terms.
 - Restored strict MyPy compatibility with the current development toolchain by
@@ -32,6 +36,8 @@
   norms, inverses and division, tensor products with factor-wise
   conjugations, and exact tests for commutativity, associativity,
   alternativity, the composition law, involutions, and automorphisms.
+- Set the package version to `0.1.8` and tagged the source `v0.1.8`. The
+  0.1.0 milestone was never tagged.
 - Completed the interface work (v0.1.8, second part). `aa.structure` builds
   finite structures with several sets and operations of any arity, with
   laws written as functions. `A.generic()` gives an element symbolic

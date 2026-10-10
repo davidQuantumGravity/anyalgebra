@@ -33,7 +33,7 @@ def test_package_metadata_uses_one_development_version_source() -> None:
     assert metadata["tool"]["hatch"]["build"]["targets"]["wheel"] == {
         "packages": ["src/anyalgebra"]
     }
-    assert anyalgebra.__version__ == _version.__version__ == "0.1.0"
+    assert anyalgebra.__version__ == _version.__version__ == "0.1.8"
 
 
 def test_neutral_package_exposes_only_version_and_typed_marker() -> None:

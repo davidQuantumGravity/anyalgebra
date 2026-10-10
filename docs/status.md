@@ -3,6 +3,17 @@
 **Checked:** 2026-08-30
 **Authoritative for:** current implementation, verification, and distribution status
 
+## Later releases
+
+The source now reports version `0.1.8`, tagged `v0.1.8` on 2026-10-10. It adds
+the convenience layer, the family modules and the interface work of the
+v0.1.1 to v0.1.8 patches on top of the milestone below; the
+[changelog](../CHANGELOG.md) lists them. The tag marks a source state on
+GitHub. Nothing is published on a package index.
+
+Everything below this section is the record of the 0.1.0 checkpoint and is
+kept as it was measured then.
+
 ## Summary
 
 AnyAlgebra is a **locally complete 0.1.0 source milestone**. All 60 sequential
@@ -25,7 +36,7 @@ tests that audit internal records skipped with an explicit reason.
 
 | Status dimension | Current state | Evidence or meaning |
 |---|---|---|
-| Source version | `0.1.0` | `src/anyalgebra/_version.py` |
+| Source version at the checkpoint | `0.1.0` | `src/anyalgebra/_version.py` then; `0.1.8` now |
 | Closed source scope | 60 of 60 v0.1 tasks accepted | `V01-060` passed the aggregate readiness gate |
 | Historical v0.0.1 coverage | 14,578/14,578 statements and 4,960/4,960 branches | Frozen 60-file historical ledger remains valid |
 | Current standalone full suite | **2,807 passed, 2 skipped** in 647.05 seconds | Run with AlgMul and research paths deliberately set to nonexistent locations; skips are Windows symlink capability controls |
@@ -40,7 +51,7 @@ tests that audit internal records skipped with an explicit reason.
 | Candidate wheel | `anyalgebra-0.1.0-py3-none-any.whl`, 104 members, SHA-256 `13BCCFBA78F50EE3AE70B893EA5E57BE7F03B2FC54B70680BB02096692092484` | Temporary local artifact inspected and clean-installed |
 | Candidate source archive | `anyalgebra-0.1.0.tar.gz`, 626 members, SHA-256 `9083FB88F2C6647EB241F2A6D6A1076B29DBCE5BB45B7D6FDFA4265F91045DAE` | Temporary local artifact inspected and clean-installed |
 | Legacy AlgMul lane | **301 passed** with 2,508 non-legacy tests deselected | Uses committed receipts and synthetic inputs; no external AlgMul or research checkout is read |
-| Git release | **No Git tag; not tagged** | A local candidate is not a tagged release |
+| Git release at the checkpoint | **No Git tag; not tagged** | The 0.1.0 candidate was never tagged; the first tag is `v0.1.8` |
 | Publication | **Not published; publication is not claimed** | No package-index upload was attempted or verified |
 | Research completion | Not claimed | `NEW-01` is a bounded computational dossier; experimental exceptional modules are not promoted to the v0.1 stable surface |
 
