@@ -283,3 +283,46 @@ def tensor_jordan_dimension(
 ) -> int:
     """Return ``dim(A) * (n + n(n-1)/2 * dim(B))``."""
     return left_dimension * (size + size * (size - 1) // 2 * right_dimension)
+
+
+# --- reports -----------------------------------------------------------------
+
+
+def report(source: Algebra) -> str:
+    """Return the exact Jordan facts of a commutative algebra as text."""
+    commutative = is_commutative(source)
+    rows = (
+        ("dimension", source.rank),
+        ("commutative", commutative),
+        ("Jordan identity", satisfies_jordan_identity(source)),
+        ("Jordan algebra", commutative and satisfies_jordan_identity(source)),
+    )
+    width = max(len(title) for title, _ in rows)
+    return "\n".join(
+        [
+            f"{source.name}:",
+            *(f"  {title.ljust(width)}  {value}" for title, value in rows),
+        ]
+    )
+
+
+def proof_table(algebras: Sequence[Algebra], sizes: Sequence[int] = (2, 3)) -> str:
+    """Return a table saying for which ``A`` and ``n`` the algebra ``J_n(A)`` is Jordan.
+
+    Every cell is decided exactly by :func:`is_jordan`.
+    """
+    heads = [f"J{size}" for size in sizes]
+    cells = [
+        [
+            "Jordan" if is_jordan(hermitian(source, size)) else "not Jordan"
+            for size in sizes
+        ]
+        for source in algebras
+    ]
+    names = [source.name for source in algebras]
+    side = max(len(name) for name in names) + 2
+    width = max(len(text) for text in [*heads, *(c for row in cells for c in row)]) + 2
+    lines = ["".ljust(side) + "".join(head.ljust(width) for head in heads)]
+    for name, row in zip(names, cells, strict=True):
+        lines.append(name.ljust(side) + "".join(cell.ljust(width) for cell in row))
+    return "\n".join(line.rstrip() for line in lines)

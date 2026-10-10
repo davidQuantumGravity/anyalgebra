@@ -7,7 +7,9 @@ when the AGPL terms are followed.
 A separately negotiated proprietary license may be available for an
 organization that wants to incorporate AnyAlgebra into a closed-source
 application or hosted service without applying the AGPL to the resulting
-covered work. Academic and nonprofit requests may be considered individually.
+covered work. Academic and nonprofit organizations that want such a
+proprietary license may ask too, and their requests are considered case by
+case. Ordinary research and teaching use under the AGPL needs no request.
 
 To discuss separate terms, contact the maintainer through the
 [davidQuantumGravity GitHub profile](https://github.com/davidQuantumGravity)

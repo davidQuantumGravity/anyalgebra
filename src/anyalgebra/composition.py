@@ -29,7 +29,7 @@ split form.
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from fractions import Fraction
 from itertools import product
 
@@ -150,7 +150,8 @@ def tensor(left: Algebra, right: Algebra, *, name: str | None = None) -> Algebra
     The basis is ordered with the right factor running fastest.  A basis
     element is labeled ``a.b``, with the unit factors left out, so the unit is
     ``1``.  Where the two factors share a label, the right factor's ``e1, e2,
-    ...`` become ``f1, f2, ...``.  The declared conjugation conjugates both factors;
+    ...`` become ``f1, f2, ...``, or ``g1, g2, ...`` in a third factor.  The
+    declared conjugation conjugates both factors;
     :func:`factor_conjugation` gives the one-sided ones.
     """
     if left.unit_index is None or right.unit_index is None:
@@ -158,10 +159,14 @@ def tensor(left: Algebra, right: Algebra, *, name: str | None = None) -> Algebra
 
     shared = (set(left.labels) & set(right.labels)) - {"1"}
 
+    # The first letter that no part of a left label starts with: f, then g, ...
+    taken = {part[0] for text in left.labels for part in text.split(".")}
+    letter = next(c for c in "fghkmnpqrstuvw" if c not in taken)
+
     def second_name(b: str) -> str:
         if not shared:
             return b
-        return "f" + b[1:] if b.startswith("e") and b[1:].isdigit() else b + "_2"
+        return letter + b[1:] if b.startswith("e") and b[1:].isdigit() else b + "_2"
 
     def label(a: str, b: str) -> str:
         if a == "1":
@@ -205,6 +210,37 @@ def factor_conjugation(
 ) -> tuple[int, ...]:
     """Return the signs that conjugate the chosen factors of ``tensor(left, right)``."""
     return _factor_signs(left, right, first=first, second=second)
+
+
+def factors_conjugation(
+    factors: Sequence[Algebra], conjugated: Iterable[int]
+) -> tuple[int, ...]:
+    """Return the signs that conjugate chosen factors of an iterated tensor product.
+
+    ``factors`` lists the algebras in the order they were tensored, as in
+    ``tensor(tensor(A, B), C)``, and ``conjugated`` the positions, from zero,
+    of the factors to conjugate.  Use the result with :func:`conjugate` or
+    with ``Mat.conj`` and ``Mat.dagger``.
+    """
+    chosen = set(conjugated)
+    if not factors or not chosen <= set(range(len(factors))):
+        raise EasyError("involution", "the positions must name existing factors")
+    per_factor = []
+    for position, factor in enumerate(factors):
+        signs = factor.conjugation_signs
+        if position not in chosen:
+            per_factor.append((1,) * factor.rank)
+        elif signs is None:
+            raise EasyError("involution", f"{factor.name} declares no conjugation")
+        else:
+            per_factor.append(signs)
+    result = []
+    for combination in product(*per_factor):
+        sign = 1
+        for value in combination:
+            sign *= value
+        result.append(sign)
+    return tuple(result)
 
 
 def conjugate(x: Element, signs: Sequence[int]) -> Element:

@@ -603,3 +603,80 @@ class RootSystem:
 def root_system(family: str, rank: int) -> RootSystem:
     """Return the root system of a simple Cartan type."""
     return RootSystem(family, rank)
+
+
+# --- finite transformations --------------------------------------------------
+
+
+def inverse(rows: Rows) -> Matrix:
+    """Return the exact inverse of a square rational matrix."""
+    matrix = [list(row) for row in _exact(rows)]
+    size = len(matrix)
+    result = [[Fraction(int(i == j)) for j in range(size)] for i in range(size)]
+    for column in range(size):
+        pivot = next((r for r in range(column, size) if matrix[r][column]), None)
+        if pivot is None:
+            raise EasyError("singular", "the matrix has no inverse")
+        matrix[column], matrix[pivot] = matrix[pivot], matrix[column]
+        result[column], result[pivot] = result[pivot], result[column]
+        scale = matrix[column][column]
+        matrix[column] = [value / scale for value in matrix[column]]
+        result[column] = [value / scale for value in result[column]]
+        for row in range(size):
+            factor = matrix[row][column]
+            if row != column and factor:
+                matrix[row] = [
+                    a - factor * b
+                    for a, b in zip(matrix[row], matrix[column], strict=True)
+                ]
+                result[row] = [
+                    a - factor * b
+                    for a, b in zip(result[row], result[column], strict=True)
+                ]
+    return tuple(tuple(row) for row in result)
+
+
+def cayley(rows: Rows) -> Matrix:
+    """Return the Cayley transform ``(1 - X)^-1 (1 + X)`` of a matrix.
+
+    It turns an element of a matrix Lie algebra into an element of the group
+    without leaving the rationals: if ``X^T eta + eta X = 0`` then the result
+    ``g`` satisfies ``g^T eta g = eta``.  It is the exact stand-in for the
+    exponential, which is not rational.
+    """
+    x = _exact(rows)
+    size = len(x)
+    one = tuple(tuple(Fraction(int(i == j)) for j in range(size)) for i in range(size))
+    minus = tuple(
+        tuple(a - b for a, b in zip(r, s, strict=True))
+        for r, s in zip(one, x, strict=True)
+    )
+    plus = tuple(
+        tuple(a + b for a, b in zip(r, s, strict=True))
+        for r, s in zip(one, x, strict=True)
+    )
+    return _multiply(inverse(minus), plus)
+
+
+def rotation(p: int, q: int, a: int, b: int, t: int | Fraction) -> Matrix:
+    """Return an exact rotation or boost in the plane of axes ``a`` and ``b``.
+
+    Axes count from zero; the first ``p`` are spacelike.  ``t`` is the
+    tangent of half the angle, or the hyperbolic tangent of half the
+    rapidity when the two axes have opposite signs.  The matrix preserves
+    the diagonal form with ``p`` entries ``+1`` and ``q`` entries ``-1``.
+    """
+    n = p + q
+    if not (0 <= a < n and 0 <= b < n) or a == b:
+        raise EasyError("shape", "two different axes are required")
+    eta = [1] * p + [-1] * q
+    generator = _add(_unit(n, a, b, eta[b]), _unit(n, b, a, eta[a]), -1)
+    scaled = [[Fraction(t) * value for value in row] for row in generator]
+    return cayley(scaled)
+
+
+def preserves_form(group_element: Rows, form: Rows) -> bool:
+    """Say whether ``g^T F g == F`` exactly."""
+    g, f = _exact(group_element), _exact(form)
+    transposed = tuple(zip(*g, strict=True))
+    return _multiply(_multiply(transposed, f), g) == f

@@ -25,10 +25,13 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 from fractions import Fraction
-from itertools import combinations
+from functools import cache
+from itertools import combinations, product
 
+import anyalgebra.composition as ca
+import anyalgebra.matrices as am
 from anyalgebra.easy import Algebra, EasyError, Element, algebra
-from anyalgebra.lie import LieAlgebra, from_matrices
+from anyalgebra.lie import LieAlgebra, _Span, from_matrices
 
 MAX_TABLE_GENERATORS = 8
 
@@ -381,3 +384,242 @@ def spin_algebra(p: int, q: int = 0) -> LieAlgebra:
     generators = spin_generators(gamma_matrices(p, q))
     name = f"spin({p})" if q == 0 else f"spin({p},{q})"
     return from_matrices([g.realified() for g in generators], name=name)
+
+
+# --- idempotents and minimal left ideals -------------------------------------
+
+
+def commuting_involutions(source: Algebra) -> tuple[Element, ...]:
+    """Return a maximal set of independent commuting blades that square to ``+1``.
+
+    Blades are taken in basis order.  A blade is skipped when it does not
+    commute with the chosen ones or is, up to sign, a product of them.  These
+    are the blades that can be made diagonal together.
+    """
+    grades(source)
+    one = source.unit
+    assert one is not None
+    chosen: list[Element] = []
+    generated = {source.labels[0]}
+    for blade in source.basis[1:]:
+        (label,) = blade.coefficients
+        if label in generated or blade * blade != one:
+            continue
+        if any(blade * other != other * blade for other in chosen):
+            continue
+        chosen.append(blade)
+        generated |= {
+            next(iter((blade * source[known]).coefficients)) for known in generated
+        }
+    return tuple(chosen)
+
+
+def idempotent(
+    blades: Sequence[Element], signs: Sequence[int] | None = None
+) -> Element:
+    """Return the product of the factors ``(1 + s*b) / 2`` over the given blades."""
+    if not blades:
+        raise EasyError("shape", "at least one blade is required")
+    chosen = (1,) * len(blades) if signs is None else tuple(signs)
+    if len(chosen) != len(blades) or any(sign not in (1, -1) for sign in chosen):
+        raise EasyError("shape", "one sign, +1 or -1, per blade")
+    result = (1 + chosen[0] * blades[0]) / 2
+    for sign, blade in zip(chosen[1:], blades[1:], strict=True):
+        result = result * ((1 + sign * blade) / 2)
+    return result
+
+
+def is_idempotent(x: Element) -> bool:
+    """Say whether ``x * x == x``."""
+    return x * x == x
+
+
+def primitive_idempotents(source: Algebra) -> tuple[Element, ...]:
+    """Return mutually annihilating primitive idempotents that sum to one.
+
+    There is one for each choice of signs on :func:`commuting_involutions`.
+    An algebra with no such blade, such as ``Cl(0, 1)``, has only ``1``.
+    """
+    blades = commuting_involutions(source)
+    if not blades:
+        one = source.unit
+        assert one is not None
+        return (one,)
+    return tuple(
+        idempotent(blades, signs) for signs in product((1, -1), repeat=len(blades))
+    )
+
+
+def _span_of(vectors: Sequence[Element]) -> tuple[_Span, tuple[Element, ...]]:
+    span = _Span(vectors[0].algebra.rank)
+    kept = tuple(vector for vector in vectors if span.add(vector.vector))
+    return span, kept
+
+
+def left_ideal(f: Element) -> tuple[Element, ...]:
+    """Return a basis of the left ideal ``A f``."""
+    return _span_of([blade * f for blade in f.algebra.basis])[1]
+
+
+def division_ring(f: Element) -> str:
+    """Return ``R``, ``C`` or ``H``: the algebra ``f A f`` of a primitive idempotent.
+
+    The answer is read off the dimension of ``f A f``, which must be 1, 2 or
+    4; any other dimension means that ``f`` is not primitive.
+    """
+    if not is_idempotent(f) or not f:
+        raise EasyError("idempotent", "a nonzero idempotent is required")
+    corner = _span_of([f * blade * f for blade in f.algebra.basis])[1]
+    found = {1: "R", 2: "C", 4: "H"}.get(len(corner))
+    if found is None:
+        raise EasyError(
+            "idempotent", f"f A f has dimension {len(corner)}: f is not primitive"
+        )
+    return found
+
+
+def spinor_representation(
+    source: Algebra, f: Element | None = None
+) -> tuple[tuple[tuple[Fraction, ...], ...], ...]:
+    """Return real matrices of the generators acting on a minimal left ideal.
+
+    The ideal is ``A f`` for a primitive idempotent ``f``, by default the
+    first of :func:`primitive_idempotents`.  Matrix ``a`` gives left
+    multiplication by generator ``a + 1`` in the basis of
+    :func:`left_ideal`.  The matrices are rational and satisfy the Clifford
+    relations of ``source``.  When :func:`division_ring` is ``R`` this is a
+    Majorana representation.
+    """
+    chosen = primitive_idempotents(source)[0] if f is None else f
+    span, basis = _span_of([blade * chosen for blade in source.basis])
+    generators = [
+        blade
+        for blade, grade in zip(source.basis, grades(source), strict=True)
+        if grade == 1
+    ]
+    matrices = []
+    for generator in generators:
+        columns = []
+        for vector in basis:
+            found = span.coordinates((generator * vector).vector)
+            assert found is not None
+            columns.append(found)
+        matrices.append(
+            tuple(
+                tuple(columns[c][r] for c in range(len(basis)))
+                for r in range(len(basis))
+            )
+        )
+    return tuple(matrices)
+
+
+# --- dense complex matrices: changes of basis and vectors --------------------
+
+
+@cache
+def complex_numbers() -> Algebra:
+    """Return the one complex algebra that dense gamma matrices share."""
+    return ca.complexes()
+
+
+def as_matrix(value: Monomial) -> am.Mat:
+    """Return a monomial matrix as a dense matrix over the complex numbers."""
+    numbers = complex_numbers()
+    return am.matrix(
+        numbers,
+        [
+            [numbers(real, imaginary) for real, imaginary in row]
+            for row in value.dense()
+        ],
+    )
+
+
+def change_basis(
+    gammas: Sequence[am.Mat], s: am.Mat, s_inverse: am.Mat
+) -> tuple[am.Mat, ...]:
+    """Return ``S g S^-1`` for every matrix, after checking ``S S^-1 = 1``."""
+    size = s.shape[0]
+    if s @ s_inverse != am.identity(s.algebra, size):
+        raise EasyError("shape", "the second matrix is not the inverse of the first")
+    return tuple(s @ gamma @ s_inverse for gamma in gammas)
+
+
+def dirac_basis(
+    gammas: Sequence[Monomial], index: int = 0
+) -> tuple[tuple[am.Mat, ...], am.Mat]:
+    """Return the gamma matrices in a basis where one of them is diagonal.
+
+    The construction above is a Weyl basis: its chirality matrix is diagonal.
+    Here gamma ``index`` becomes diagonal and the chirality matrix does not.
+    The result is ``(matrices, S)`` with ``S = c*g + G``, where ``G`` is the
+    chirality matrix and ``c`` is 1 or ``i`` so that ``(c*g)^2 = 1``.  ``S``
+    is its own inverse up to a factor 2, so applying the change twice
+    returns the Weyl basis.  An even number of gamma matrices is required.
+    """
+    if len(gammas) % 2:
+        raise EasyError("signature", "an even number of gamma matrices is required")
+    chosen = gammas[index]
+    square = (chosen @ chosen).is_identity_multiple()
+    assert square is not None
+    unitary = chosen if square[0] == 0 else chosen.times_i()
+    s = as_matrix(unitary) + as_matrix(chirality(gammas))
+    return change_basis([as_matrix(g) for g in gammas], s, s / 2), s
+
+
+def is_real(matrices: Sequence[am.Mat]) -> bool:
+    """Say whether every entry of every matrix is real."""
+    return all(matrix.conj() == matrix for matrix in matrices)
+
+
+def is_imaginary(matrices: Sequence[am.Mat]) -> bool:
+    """Say whether every entry of every matrix is imaginary."""
+    return all(matrix.conj() == -matrix for matrix in matrices)
+
+
+def majorana_matrices(
+    p: int, q: int = 0
+) -> tuple[tuple[tuple[Fraction, ...], ...], ...]:
+    """Return real gamma matrices of the smallest size for signature ``(p, q)``.
+
+    They exist in the complex dimension ``2^floor((p+q)/2)`` exactly when the
+    minimal left ideal of ``Cl(p, q)`` is a real vector space with division
+    ring ``R``; otherwise the error names the ring.
+    """
+    source = clifford(p, q)
+    ring = division_ring(primitive_idempotents(source)[0])
+    if ring != "R":
+        raise EasyError(
+            "signature",
+            f"Cl({p},{q}) has spinors over {ring}: no real representation of "
+            "the complex dimension exists",
+        )
+    return spinor_representation(source)
+
+
+def slash(gammas: Sequence[Monomial], vector: Sequence[int | Fraction]) -> am.Mat:
+    """Return the matrix ``v_a g_a`` of a vector."""
+    if len(vector) != len(gammas):
+        raise EasyError("shape", "one component per gamma matrix is required")
+    total = am.zeros(complex_numbers(), gammas[0].size)
+    for component, gamma in zip(vector, gammas, strict=True):
+        total = total + as_matrix(gamma) * Fraction(component)
+    return total
+
+
+def unslash(gammas: Sequence[Monomial], matrix: am.Mat) -> tuple[Fraction, ...]:
+    """Return the vector ``v`` with ``slash(gammas, v) == matrix``.
+
+    The components are ``tr(g_a M) / tr(g_a g_a)``.  A matrix that is not of
+    that form is an error.
+    """
+    size = gammas[0].size
+    components = []
+    for gamma in gammas:
+        square = (gamma @ gamma).is_identity_multiple()
+        assert square is not None
+        sign = 1 if square[0] == 0 else -1
+        trace = (as_matrix(gamma) @ matrix).trace()
+        components.append(trace.vector[0] / (sign * size))
+    if slash(gammas, components) != matrix:
+        raise EasyError("shape", "the matrix is not a combination of the gammas")
+    return tuple(components)

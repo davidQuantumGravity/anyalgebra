@@ -267,6 +267,7 @@ ca.cayley_dickson(A), ca.tensor(A, B)         doubling and tensor products
 am.matrix(A, rows)                            matrices over any algebra
 al.so(p, q), al.su(p, q), al.sl(n), al.sp(n)  classical Lie algebras
 al.root_system(family, rank)                  root systems of types A to G
+ls.identify(g), ls.root_decomposition(g)      which Lie algebra is this
 ac.clifford(p, q, r), ac.grassmann(n)         Clifford and exterior algebras
 ac.gamma_matrices(p, q)                       exact gamma matrices in any signature
 aj.hermitian(A, n)                            Hermitian Jordan algebras; J3(O) is the Albert algebra
@@ -366,7 +367,8 @@ and rejects the others.
 
 ## Status
 
-The source reports version `0.1.8`, tagged `v0.1.8`. The 0.1.0 milestone
+The source reports version `0.1.9`, tagged `v0.1.9`; `v0.1.8` is the earlier
+tag. The 0.1.0 milestone
 closed all 60 planned v0.1 tasks, and its final task, `V01-060`, passed its
 readiness gate. The convenience layer and the family modules were added
 afterwards as the v0.1.x patches; they are tested against textbook
@@ -450,21 +452,45 @@ repository.
 
 ## License
 
-AnyAlgebra is licensed under the
+AnyAlgebra is free and open-source software under the
 [GNU Affero General Public License, version 3 only](LICENSE)
-(`AGPL-3.0-only`). The AGPL permits research, educational, nonprofit, and
-commercial use subject to its terms. In particular, its source-sharing
-conditions can apply when covered software is conveyed and when a modified
-version is made available for users to interact with over a network. The
-license text, rather than this summary, controls.
+(`AGPL-3.0-only`).
 
-Organizations that want to incorporate AnyAlgebra into a proprietary
-application or hosted service without using the resulting work under the
-AGPL may ask the repository maintainer about a separate commercial license.
-Academic and nonprofit requests may be considered individually. See
-[Commercial licensing](COMMERCIAL-LICENSING.md) for the scope and contact
-route. No proprietary-license permission is granted unless separate written
-terms are agreed.
+**Researchers, teachers and students can use it for free, without asking
+anyone.** No payment and no permission are needed when the terms of the AGPL
+are followed, and the same holds for nonprofit and commercial use.
+
+| You want to | What the license means |
+|---|---|
+| Download it and run calculations | Allowed. No fee and no approval. |
+| Change it for your own research | Allowed. Your changes can stay private as long as you neither give the software to others nor let others use your modified version over a network. |
+| Publish equations, numbers, plots or papers | Your results are yours. They do not fall under the AGPL because AnyAlgebra helped produce them. |
+| Share copies, or software built on it | Allowed. Keep the notices, include the license, and make the corresponding source available. |
+| Run a modified version as a website or API | Allowed. Offer the corresponding source of your version, prominently, to the people who use it over the network. |
+
+Two points are easy to miss:
+
+- Distributing an application that combines your code with AnyAlgebra can
+  bring the combined program under the AGPL, even if AnyAlgebra's own files
+  are unchanged.
+- The network condition also applies inside an institution. A modified
+  version offered to other users on a university network counts. Academic
+  status does not waive the terms.
+
+This is a summary for orientation, not legal advice. The
+[license text](LICENSE) controls.
+
+### A separate proprietary license
+
+This matters only if you want to do something the AGPL does not allow:
+building AnyAlgebra into a closed-source application, or into a hosted
+service, without releasing the resulting work under the AGPL. In that case
+you may ask the maintainer for a separately negotiated license. Requests of
+that kind from academic and nonprofit organizations are considered case by
+case, like any other. Ordinary academic use needs no request at all. See
+[Commercial licensing](COMMERCIAL-LICENSING.md) for the scope and how to get
+in touch. No proprietary permission exists until separate written terms are
+agreed.
 
 Unless a file or directory says otherwise, original material in this
 repository is covered by the repository license. Third-party material remains

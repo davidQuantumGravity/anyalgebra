@@ -33,7 +33,7 @@ def test_backends_reference_without_optionals_clean_install_imports_wheel() -> N
 
     result = smoke_tool.run_clean_install_smoke(REPOSITORY_ROOT)
 
-    assert result.version == "0.1.8"
+    assert result.version == "0.1.9"
     assert result.package_location.endswith("anyalgebra/__init__.py")
     assert result.package_location.startswith(result.purelib_location)
     assert result.optional_modules_attempted == ()

@@ -125,7 +125,7 @@ def test_groups_partial_operations_and_other_laws() -> None:
 
 def test_catalog_lists_every_family() -> None:
     lines = aa.catalog().splitlines()
-    assert len(lines) == 19 and lines[0].startswith("aa.quaternions(), aa.octonions()")
+    assert len(lines) == 20 and lines[0].startswith("aa.quaternions(), aa.octonions()")
     text = aa.catalog()
     for call in (
         "ca.sedenions()",

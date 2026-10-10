@@ -21,17 +21,19 @@ ASSETS = Path(__file__).resolve().parents[1] / "docs" / "assets"
 INK = "#1f2937"
 PAPER = "#f8fafc"
 RULE = "#cbd5e1"
-# One hue per basis element e1 .. e7; the unit is neutral.
+# One hue per basis element; the unit is neutral.  e1, e2, e3 are red, green
+# and blue, and e4 to e7 take the remaining well-separated hues.
 HUES = (
     "#64748b",
-    "#2563eb",
-    "#0891b2",
-    "#059669",
-    "#ca8a04",
-    "#ea580c",
     "#dc2626",
+    "#16a34a",
+    "#2563eb",
+    "#ca8a04",
+    "#0891b2",
+    "#db2777",
     "#9333ea",
 )
+IN_HUE, OUT_HUE = HUES[3], HUES[1]
 FONT = 'font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"'
 
 
@@ -252,7 +254,7 @@ def notebook_cell() -> str:
         f'<rect width="{width}" height="{height}" rx="16" fill="{PAPER}"/>',
         f'<rect x="92" y="18" width="{width - 110}" height="98" rx="6" fill="#ffffff" '
         f'stroke="{RULE}"/>',
-        f'<text x="84" y="42" {FONT} font-size="13" text-anchor="end" fill="{HUES[1]}">'
+        f'<text x="84" y="42" {FONT} font-size="13" text-anchor="end" fill="{IN_HUE}">'
         "In [1]:</text>",
     ]
     for row, line in enumerate((*NOTEBOOK_CODE, "x")):
@@ -261,17 +263,17 @@ def notebook_cell() -> str:
             f'xml:space="preserve">{html.escape(line)}</text>'
         )
     parts += [
-        f'<text x="84" y="148" {FONT} font-size="13" text-anchor="end" fill="{HUES[6]}">'  # noqa: E501
+        f'<text x="84" y="148" {FONT} font-size="13" text-anchor="end" fill="{OUT_HUE}">'  # noqa: E501
         "Out[1]:</text>",
         f'<text x="104" y="150" {SERIF} font-size="21" font-style="italic" fill="{INK}">'  # noqa: E501
         f"{html.escape(format(x, 'pretty'))}</text>",
         f'<rect x="92" y="172" width="{width - 110}" height="34" rx="6" fill="#ffffff" '
         f'stroke="{RULE}"/>',
-        f'<text x="84" y="194" {FONT} font-size="13" text-anchor="end" fill="{HUES[1]}">'  # noqa: E501
+        f'<text x="84" y="194" {FONT} font-size="13" text-anchor="end" fill="{IN_HUE}">'
         "In [2]:</text>",
         f'<text x="104" y="194" {FONT} font-size="14" fill="{INK}">H</text>',
         f'<text x="84" y="{grid_top + 24}" {FONT} font-size="13" text-anchor="end" '
-        f'fill="{HUES[6]}">Out[2]:</text>',
+        f'fill="{OUT_HUE}">Out[2]:</text>',
     ]
     left = 104
     for index, element in enumerate(basis):

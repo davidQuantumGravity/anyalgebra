@@ -4,6 +4,27 @@
 
 Nothing yet.
 
+## 0.1.9 - 2026-10-10
+
+- Reworded the License section of the README: academic and research use is
+  free without a request, with a table of what each kind of use requires.
+- Colored `e1`, `e2`, `e3` red, green and blue in the README figures.
+- Added `anyalgebra.lie_structure` (v0.1.9): Cartan subalgebras of any
+  Lie algebra, the radical, root decompositions over the Gaussian
+  rationals, Cartan matrices from root strings, recognition of every
+  Cartan type, Chevalley generators, and the real form of each simple
+  ideal from its Killing signature. `ls.identify(g)` names an algebra
+  from its structure constants, for example `sl(3, O)` as `e6(-26)`.
+- Second round of the family modules (v0.1.9). Clifford: primitive
+  idempotents, minimal left ideals, the division ring of a signature, real
+  spinor and Majorana representations. Gamma matrices: dense complex
+  matrices, the change between Weyl and Dirac bases, and vectors as slashed
+  matrices. Lie: the Cayley transform and exact rotations and boosts.
+  Jordan: reports and a proof table. Matrix Lie: multiplication algebras
+  and `so(n, A)`. Tensor products of three factors with factor-wise
+  conjugations. The exact Killing signatures of `su(3, O)` and `sl(3, O)`
+  are now tested.
+
 ## 0.1.8 - 2026-10-10
 
 - Licensed the repository under `AGPL-3.0-only` and documented the option to

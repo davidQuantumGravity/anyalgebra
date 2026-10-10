@@ -1563,7 +1563,7 @@ def _member(report: ValidationReport, sort: object, index: int) -> object:
 # --- the catalog -------------------------------------------------------------
 
 _CATALOG: Final = (
-    ("aa.quaternions(), aa.octonions()", "H and O in the pinned AlgMul conventions"),
+    ("aa.quaternions(), aa.octonions()", "H and O in our conventions"),
     ("aa.split_quaternions(), aa.split_octonions()", "their split forms"),
     ("aa.algebra(labels, table)", "any algebra from a table of basis products"),
     ("aa.magma(elements, function)", "any finite set with a binary operation"),
@@ -1577,6 +1577,7 @@ _CATALOG: Final = (
     ("am.matrix(A, rows)", "matrices over any algebra"),
     ("al.so(p, q), al.su(p, q), al.sl(n), al.sp(n)", "classical Lie algebras"),
     ("al.root_system(family, rank)", "root systems of types A to G"),
+    ("ls.identify(g), ls.root_decomposition(g)", "which Lie algebra is this"),
     ("ac.clifford(p, q, r), ac.grassmann(n)", "Clifford and exterior algebras"),
     ("ac.gamma_matrices(p, q)", "exact gamma matrices in any signature"),
     ("aj.hermitian(A, n)", "Hermitian Jordan algebras; J3(O) is the Albert algebra"),
@@ -1591,7 +1592,8 @@ def catalog() -> str:
     The prefixes are the conventional imports: ``aa`` for this module,
     ``ca`` for ``anyalgebra.composition``, ``am`` for ``anyalgebra.matrices``,
     ``al`` for ``anyalgebra.lie``, ``ac`` for ``anyalgebra.clifford``,
-    ``aj`` for ``anyalgebra.jordan`` and ``ml`` for ``anyalgebra.matrix_lie``.
+    ``aj`` for ``anyalgebra.jordan``, ``ml`` for ``anyalgebra.matrix_lie`` and
+    ``ls`` for ``anyalgebra.lie_structure``.
     """
     width = max(len(call) for call, _ in _CATALOG)
     return "\n".join(f"{call.ljust(width)}  {text}" for call, text in _CATALOG)

@@ -6,6 +6,6 @@ type: software
 authors:
   - family-names: "Chester"
     given-names: "David"
-version: "0.1.8"
+version: "0.1.9"
 license: "AGPL-3.0-only"
 repository-code: "https://github.com/davidQuantumGravity/anyalgebra"
