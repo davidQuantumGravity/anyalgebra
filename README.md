@@ -253,7 +253,7 @@ print(aa.catalog())
 ```
 
 ```text
-aa.quaternions(), aa.octonions()              H and O in the pinned AlgMul conventions
+aa.quaternions(), aa.octonions()              H and O in our conventions
 aa.split_quaternions(), aa.split_octonions()  their split forms
 aa.algebra(labels, table)                     any algebra from a table of basis products
 aa.magma(elements, function)                  any finite set with a binary operation
@@ -376,7 +376,7 @@ No signed archive or package-index publication exists yet. The
 [current status](docs/status.md) page records the exact test, coverage, and
 artifact evidence and its boundaries.
 
-These are engineering results. They do not establish AlgMul correctness, a
+These are engineering results. They do not establish correctness, a
 general algebra classification, or a physics claim. No project/scientific claim
 follows from a passing package or atlas gate.
 
@@ -429,9 +429,8 @@ import path.
 controls when two disagree. The main entries are the
 [architecture decisions](docs/architecture/architecture-decisions/README.md),
 the [conventions](docs/conventions/conventions-v0.0.md), the
-[testing strategy](docs/testing/testing-strategy.md), the
-[evidence model](docs/evidence/evidence-model.md), and the
-[AlgMul parity contract](docs/legacy/algmul-parity.md).
+[testing strategy](docs/testing/testing-strategy.md), and the
+[evidence model](docs/evidence/evidence-model.md).
 
 ## Repository layout
 
