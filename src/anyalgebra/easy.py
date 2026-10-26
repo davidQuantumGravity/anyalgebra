@@ -1578,6 +1578,14 @@ _CATALOG: Final = (
     ("al.so(p, q), al.su(p, q), al.sl(n), al.sp(n)", "classical Lie algebras"),
     ("al.root_system(family, rank)", "root systems of types A to G"),
     ("ls.identify(g), ls.root_decomposition(g)", "which Lie algebra is this"),
+    (
+        "aw.lie_type(name), T.tensor(v, w)",
+        "representations, characters, products",
+    ),
+    (
+        "ab.maximal_subalgebras(T), ab.chains(S, T)",
+        "subalgebras, branching rules, chains",
+    ),
     ("ac.clifford(p, q, r), ac.grassmann(n)", "Clifford and exterior algebras"),
     ("ac.gamma_matrices(p, q)", "exact gamma matrices in any signature"),
     ("aj.hermitian(A, n)", "Hermitian Jordan algebras; J3(O) is the Albert algebra"),
@@ -1592,8 +1600,9 @@ def catalog() -> str:
     The prefixes are the conventional imports: ``aa`` for this module,
     ``ca`` for ``anyalgebra.composition``, ``am`` for ``anyalgebra.matrices``,
     ``al`` for ``anyalgebra.lie``, ``ac`` for ``anyalgebra.clifford``,
-    ``aj`` for ``anyalgebra.jordan``, ``ml`` for ``anyalgebra.matrix_lie`` and
-    ``ls`` for ``anyalgebra.lie_structure``.
+    ``aj`` for ``anyalgebra.jordan``, ``ml`` for ``anyalgebra.matrix_lie``,
+    ``ls`` for ``anyalgebra.lie_structure``, ``aw`` for ``anyalgebra.weights``
+    and ``ab`` for ``anyalgebra.branching``.
     """
     width = max(len(call) for call, _ in _CATALOG)
     return "\n".join(f"{call.ljust(width)}  {text}" for call, text in _CATALOG)

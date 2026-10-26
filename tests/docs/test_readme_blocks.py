@@ -25,7 +25,7 @@ def test_readme_code_blocks_print_the_shown_output() -> None:
             assert printed.strip() == body.strip()
             printed = None
             compared += 1
-    assert compared == 10
+    assert compared == 11
 
 
 def test_readme_shows_no_kernel_repr_and_links_existing_files() -> None:
@@ -44,7 +44,7 @@ def test_api_guide_code_blocks_run() -> None:
 
     forms = dict(aa._FORMS)
     try:
-        for name in ("easy", "composition", "families"):
+        for name in ("easy", "composition", "families", "representations"):
             guide = README.parent / "docs" / "api" / f"{name}.md"
             namespace: dict[str, object] = {"__name__": name}
             blocks = [

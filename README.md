@@ -210,6 +210,28 @@ In words: the octonions are alternative and the sedenions are not; the
 and the 2-by-2 octonionic matrices generate a 45-dimensional Lie algebra with
 the same Killing-form signature as `so(9,1)`.
 
+Representations and branching rules are computed from the weight lattice.
+Each rule below is derived from the Dynkin diagram, not looked up:
+
+```python
+import anyalgebra.branching as ab
+import anyalgebra.weights as aw
+
+E6 = aw.lie_type("E6")
+first = (1, 0, 0, 0, 0, 0)
+print(E6.show(E6.tensor(first, first)))
+for step in ab.maximal_subalgebras(E6):
+    print(step.show(first), " under", step.target.name)
+```
+
+```text
+351 + 351' + 27*
+27 = 16*(1) + 10(-2) + 1(4)  under D5+U1
+27 = (15*,1) + (6,2)  under A5+A1
+27 = (3,3,1) + (3*,1,3*) + (1,3*,3)  under A2+A2+A2
+27 = 26 + 1  under F4
+```
+
 A check on basis elements is not a proof for every element. For that, give
 an element symbols for coordinates. One calculation with polynomials then
 settles an identity for all elements at once:
@@ -268,6 +290,8 @@ am.matrix(A, rows)                            matrices over any algebra
 al.so(p, q), al.su(p, q), al.sl(n), al.sp(n)  classical Lie algebras
 al.root_system(family, rank)                  root systems of types A to G
 ls.identify(g), ls.root_decomposition(g)      which Lie algebra is this
+aw.lie_type(name), T.tensor(v, w)             representations, characters, products
+ab.maximal_subalgebras(T), ab.chains(S, T)    subalgebras, branching rules, chains
 ac.clifford(p, q, r), ac.grassmann(n)         Clifford and exterior algebras
 ac.gamma_matrices(p, q)                       exact gamma matrices in any signature
 aj.hermitian(A, n)                            Hermitian Jordan algebras; J3(O) is the Albert algebra
@@ -280,6 +304,7 @@ ml.su(n, A), ml.sl(n, A)                      matrix Lie algebras over R, C, H, 
 | [Convenience layer](docs/api/easy.md) | symbols, operators, print forms, tables, reports |
 | [Composition algebras](docs/api/composition.md) | Cayley-Dickson algebras, involutions, tensor products |
 | [Algebra families](docs/api/families.md) | matrices, Lie, Clifford, Jordan, matrix Lie algebras |
+| [Representations](docs/api/representations.md) | weights, tensor products, branching, chains, global forms |
 
 ## Print forms
 
@@ -358,8 +383,9 @@ Experimental modules may change without notice.
 
 ### Not implemented yet
 
-Group-level transformations, representations and branching rules, spinor
-basis changes, and Fierz identities are not implemented. Symbolic
+Branching rules for real forms, the special subalgebras that are not
+listed in the [representations guide](docs/api/representations.md), finite
+subgroups, and Fierz identities are not implemented. Symbolic
 coefficients are polynomials only: there is no factoring or simplification
 of radicals. There is no universal `GL(n, A)` for an arbitrary nonassociative
 `A`; the matrix Lie module covers the cases that have an accepted definition
@@ -367,8 +393,8 @@ and rejects the others.
 
 ## Status
 
-The source reports version `0.1.9`, tagged `v0.1.9`; `v0.1.8` is the earlier
-tag. The 0.1.0 milestone
+The source reports version `0.1.10`. Each of `v0.1.8`, `v0.1.9` and `v0.1.10`
+is tagged. The 0.1.0 milestone
 closed all 60 planned v0.1 tasks, and its final task, `V01-060`, passed its
 readiness gate. The convenience layer and the family modules were added
 afterwards as the v0.1.x patches; they are tested against textbook

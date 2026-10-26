@@ -22,14 +22,14 @@
 <polygon points="221.0,154.0 236.0,148.0 236.0,160.0" fill="#1f2937" fill-opacity="0.7"/>
 <polygon points="144.4,317.8 131.8,307.8 142.1,301.8" fill="#1f2937" fill-opacity="0.7"/>
 <polygon points="324.5,302.2 322.2,318.2 311.9,312.2" fill="#1f2937" fill-opacity="0.7"/>
-<circle cx="230.0" cy="258.0" r="19" fill="#f8fafc" stroke="#9333ea" stroke-width="3"/>
-<text x="230.0" y="263.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#9333ea">e7</text>
-<circle cx="230.0" cy="50.0" r="19" fill="#f8fafc" stroke="#db2777" stroke-width="3"/>
-<text x="230.0" y="55.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#db2777">e6</text>
+<circle cx="230.0" cy="258.0" r="19" fill="#f8fafc" stroke="#ec4899" stroke-width="3"/>
+<text x="230.0" y="263.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#ec4899">e7</text>
+<circle cx="230.0" cy="50.0" r="19" fill="#f8fafc" stroke="#0891b2" stroke-width="3"/>
+<text x="230.0" y="55.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#0891b2">e6</text>
 <circle cx="230.0" cy="362.0" r="19" fill="#f8fafc" stroke="#dc2626" stroke-width="3"/>
 <text x="230.0" y="367.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#dc2626">e1</text>
-<circle cx="50.0" cy="362.0" r="19" fill="#f8fafc" stroke="#0891b2" stroke-width="3"/>
-<text x="50.0" y="367.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#0891b2">e5</text>
+<circle cx="50.0" cy="362.0" r="19" fill="#f8fafc" stroke="#c026d3" stroke-width="3"/>
+<text x="50.0" y="367.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#c026d3">e5</text>
 <circle cx="320.0" cy="206.0" r="19" fill="#f8fafc" stroke="#16a34a" stroke-width="3"/>
 <text x="320.0" y="211.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="700" text-anchor="middle" fill="#16a34a">e2</text>
 <circle cx="410.0" cy="362.0" r="19" fill="#f8fafc" stroke="#ca8a04" stroke-width="3"/>

@@ -5,10 +5,10 @@
 
 ## Later releases
 
-The source now reports version `0.1.9`. The tags `v0.1.8` and `v0.1.9` were
-both made on 2026-10-10. Together they add the convenience layer, the family
-modules, the interface work and the Lie structure theory of the v0.1.1 to
-v0.1.9 patches on top of the milestone below; the
+The source now reports version `0.1.10`. The tags `v0.1.8`, `v0.1.9` and
+`v0.1.10` were made on 2026-10-10. Together they add the convenience layer,
+the family modules, the interface work, Lie structure theory, and
+representations with branching, on top of the milestone below; the
 [changelog](../CHANGELOG.md) lists them. The tag marks a source state on
 GitHub. Nothing is published on a package index.
 
@@ -37,7 +37,7 @@ tests that audit internal records skipped with an explicit reason.
 
 | Status dimension | Current state | Evidence or meaning |
 |---|---|---|
-| Source version at the checkpoint | `0.1.0` | `src/anyalgebra/_version.py` then; `0.1.9` now |
+| Source version at the checkpoint | `0.1.0` | `src/anyalgebra/_version.py` then; `0.1.10` now |
 | Closed source scope | 60 of 60 v0.1 tasks accepted | `V01-060` passed the aggregate readiness gate |
 | Historical v0.0.1 coverage | 14,578/14,578 statements and 4,960/4,960 branches | Frozen 60-file historical ledger remains valid |
 | Current standalone full suite | **2,807 passed, 2 skipped** in 647.05 seconds | Run with AlgMul and research paths deliberately set to nonexistent locations; skips are Windows symlink capability controls |

@@ -252,5 +252,6 @@ Limits, stated plainly:
 
 - Fierz identities and the bilinear spinor conversions.
 - Symplectic matrix algebras over an algebra.
-- Representations and branching rules of the Lie algebras.
+- Fierz identities. Representations and branching are in the
+  [representations guide](representations.md).
 - Print forms for tensor-product elements beyond the element forms.

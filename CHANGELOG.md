@@ -4,6 +4,22 @@
 
 Nothing yet.
 
+## 0.1.10 - 2026-10-10
+
+- Colored the README figures by the Fano plane: `e1`, `e2`, `e3` red, green
+  and blue, their complements `e6`, `e5`, `e4` cyan, magenta and yellow, and
+  `e7` pink.
+- Added `anyalgebra.weights` (v0.1.10): weights, characters by
+  Freudenthal's formula, tensor products, symmetric and exterior powers,
+  reality, Dynkin index, and the global questions: centre, congruency
+  classes and the fundamental group of the group that acts faithfully on
+  given representations.
+- Added `anyalgebra.branching`: projection matrices derived from Dynkin
+  diagrams, from a representation, from foldings, and from explicit
+  elements of a Lie algebra; branching rules; maximal subalgebras; chains;
+  and regular subalgebras by type. Added `ls.maximal_compact`,
+  `ls.subalgebra` and a required torus for `ls.root_decomposition`.
+
 ## 0.1.9 - 2026-10-10
 
 - Reworded the License section of the README: academic and research use is

@@ -21,17 +21,21 @@ ASSETS = Path(__file__).resolve().parents[1] / "docs" / "assets"
 INK = "#1f2937"
 PAPER = "#f8fafc"
 RULE = "#cbd5e1"
-# One hue per basis element; the unit is neutral.  e1, e2, e3 are red, green
-# and blue, and e4 to e7 take the remaining well-separated hues.
+# One hue per basis element; the unit is neutral.  e1, e2, e3 are the primary
+# colors red, green and blue.  The Fano plane fixes the rest: the lines
+# through e7 pair e1 with e6, e2 with e5 and e3 with e4, so those pairs are
+# complementary, and e6, e5, e4 are cyan, magenta and yellow.  Every other
+# line through a primary then holds the two secondaries that contain it,
+# such as e1, e4, e5: red, yellow, magenta.  e7 is pink.
 HUES = (
     "#64748b",
     "#dc2626",
     "#16a34a",
     "#2563eb",
     "#ca8a04",
+    "#c026d3",
     "#0891b2",
-    "#db2777",
-    "#9333ea",
+    "#ec4899",
 )
 IN_HUE, OUT_HUE = HUES[3], HUES[1]
 FONT = 'font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"'
