@@ -145,6 +145,8 @@ def test_embedding_indices() -> None:
     assert index(_one("G2", "A2")) == [1] and index(_one("B3", "G2")) == [1]
     assert index(_one("F4", "B4")) == [1] and index(_one("E6", "F4")) == [1]
     assert index(_one("A3", "C2")) == [1] and index(_one("A4", "B2")) == [2]
+    # The principal A1 of the largest exceptional type: Dynkin's index 1240.
+    assert index(ab.principal_sl2(T("E8"))) == [1240]
 
 
 def test_subalgebras_given_by_a_representation() -> None:
@@ -286,7 +288,7 @@ def test_shapes_are_checked() -> None:
 
 REAL_FORMS = [
     ("A", 1), ("A", 2), ("A", 3), ("A", 5), ("B", 2), ("B", 4), ("C", 3), ("C", 4),
-    ("D", 4), ("D", 5), ("G", 2), ("F", 4), ("E", 6), ("E", 7),
+    ("D", 4), ("D", 5), ("G", 2), ("F", 4), ("E", 6), ("E", 7), ("E", 8),
 ]  # fmt: skip
 
 

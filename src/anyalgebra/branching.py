@@ -434,7 +434,7 @@ def from_subalgebra(
 
 # --- maximal subalgebras, chains and regular subalgebras ---------------------
 
-_PRINCIPAL_MAXIMAL = {("A", 2), ("G", 2), ("F", 4), ("E", 7)}
+_PRINCIPAL_MAXIMAL = {("A", 2), ("G", 2), ("F", 4), ("E", 7), ("E", 8)}
 
 
 def _maximal_simple(source: LieType) -> list[Embedding]:

@@ -941,10 +941,13 @@ _EXCEPTIONAL_COMPACT = {
     "e7(7)": "A7",
     "e7(-5)": "D6+A1",
     "e7(-25)": "E6+U1",
+    "e8(8)": "D8",
+    "e8(-24)": "E7+A1",
     "g2": "G2",
     "f4": "F4",
     "e6": "E6",
     "e7": "E7",
+    "e8": "E8",
 }
 
 
@@ -954,8 +957,6 @@ def maximal_compact(name: str) -> str:
     ``name`` is a name as :func:`real_forms` and :func:`identify` give it,
     such as ``so(9,1)``, ``su*(6)`` or ``e6(-26)``.  The answer is a type
     such as ``B4`` or ``D5+U1``, from Helgason's table of symmetric spaces.
-    The table covers the classical families and ``g2``, ``f4``, ``e6`` and
-    ``e7``; other names raise an error.
     """
     if name in _EXCEPTIONAL_COMPACT:
         return _EXCEPTIONAL_COMPACT[name]
